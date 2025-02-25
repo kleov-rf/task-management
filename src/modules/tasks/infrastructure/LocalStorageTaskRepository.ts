@@ -34,4 +34,11 @@ export class LocalStorageTaskRepository implements TaskRepository {
 
         return new Map(JSON.parse(tasks) as Iterable<[string, Primitives<Task>]>);
     }
+
+    async get(id: string) {
+        const tasks = this.getAllFromLocalStorage();
+        const task = tasks.get(id);
+
+        return Promise.resolve(Task.create(task));
+    }
 }
