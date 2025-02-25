@@ -4,6 +4,7 @@ import type {Primitives} from "@codelytv/primitives-type";
 
 export class LocalStorageTaskRepository implements TaskRepository {
     async save(task: Task): Promise<void> {
+        const existingTasks = localStorage.getItem("tasks");
         const tasks = new Map();
         const coursePrimitives = task.toPrimitives();
 
