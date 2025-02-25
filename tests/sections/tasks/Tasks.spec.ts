@@ -34,4 +34,21 @@ describe('Tasks component', () => {
         const dueDateInput = wrapper.find('input[name="dueDate"]')
         expect(dueDateInput.exists()).toBe(false);
     })
+    it('should not show create task form fields if create task form emits cancel', async () => {
+        const wrapper = mount(Tasks)
+
+        await flushPromises()
+
+        const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
+        await createNewTaskButton.trigger('click');
+
+        let titleInput = wrapper.find('input[name="title"]')
+        expect(titleInput.exists()).toBe(true);
+
+        const createTaskFormComponent = wrapper.findComponent({ name: 'CreateTaskForm'})
+        await createTaskFormComponent.vm.$emit('cancel-create-task')
+
+        titleInput = wrapper.find('input[name="title"]')
+        expect(titleInput.exists()).toBe(false);
+    })
 })
