@@ -75,4 +75,16 @@ describe('Tasks component', () => {
         titleInput = wrapper.find('input[name="title"]')
         expect(titleInput.exists()).toBe(false);
     })
+    it('should call to get all tasks when create task form emits task created', async () => {
+        const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
+        await createNewTaskButton.trigger('click');
+
+        let titleInput = wrapper.find('input[name="title"]')
+        expect(titleInput.exists()).toBe(true);
+
+        const createTaskFormComponent = wrapper.findComponent({name: 'CreateTaskForm'})
+        await createTaskFormComponent.vm.$emit('task-created')
+
+        expect(mockAllTasksGetter.get).toHaveBeenCalled()
+    })
 })
