@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {inject, ref} from "vue";
 import CreateTaskForm from "./CreateTaskForm.vue";
 import PlusIcon from "./icons/PlusIcon.vue";
+
+const allTasksGetter = inject('allTasksGetter') as AllTasksGetter;
 
 const isShowingCreateTaskForm = ref(false);
 
@@ -11,6 +13,11 @@ const showCreateTaskForm = () => {
 
 const hideCreateTaskForm = () => {
   isShowingCreateTaskForm.value = false;
+};
+
+const handleTaskCreated = () => {
+  hideCreateTaskForm();
+  allTasksGetter.get();
 };
 </script>
 
@@ -23,7 +30,7 @@ const hideCreateTaskForm = () => {
       Create new task
     </button>
     <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"
-                    @task-created="hideCreateTaskForm"/>
+                    @task-created="handleTaskCreated"/>
   </main>
 </template>
 
