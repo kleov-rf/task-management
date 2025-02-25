@@ -1,4 +1,5 @@
 import type {TaskRepository} from "../../domain/TaskRepository.ts";
+import {Task} from "../../domain/Task.ts";
 
 interface CreateTaskDTO {
     title: string;
@@ -11,6 +12,14 @@ export class TaskCreator {
     }
 
     async create({title, description, dueDate}: CreateTaskDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+        const task = Task.create({
+            id: '1',
+            title,
+            description,
+            dueDate,
+            status: 'pending',
+        });
+
+        await this.repository.save(task);
     }
 }
