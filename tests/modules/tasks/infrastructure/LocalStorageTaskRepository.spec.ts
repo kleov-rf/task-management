@@ -151,4 +151,26 @@ describe("LocalStorageTaskRepository", () => {
 
         expect(task).toBeNull();
     });
+    it('should delete task from localStorage when deleting a task', async () => {
+        const mockDueDate = new Date().getTime();
+        const mockTaskId = '1';
+        const mockTask = Task.create({
+            id: mockTaskId,
+            title: 'Task 1',
+            description: 'hello',
+            dueDate: mockDueDate,
+            status: 'pending'
+        });
+        const localStorageMock = {
+            setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(JSON.stringify(Array.from(new Map().set(mockTaskId, mockTask.toPrimitives()).entries())))
+        };
+        Object.defineProperty(window, 'localStorage', {value: localStorageMock})
+        const repository = new LocalStorageTaskRepository();
+
+        await repository.delete(mockTaskId);
+
+        const expectedTasks = JSON.stringify([]);
+        expect(localStorage.setItem).toHaveBeenCalledWith('tasks', expectedTasks);
+    });
 });
