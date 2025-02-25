@@ -34,13 +34,19 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="flex flex-col gap-8">
-    <button type="button"
-            @click="showCreateTaskForm"
-            class="flex gap-2 items-center w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-3">
-      <PlusIcon width="24" height="24"/>
-      Create new task
-    </button>
+  <main class="flex flex-col items-end gap-8 h-full bg-white p-8 rounded-2xl">
+    <header class="flex items-center justify-between w-full">
+      <span class="flex items-center gap-4 text-xl font-medium">
+        All Tasks
+        <span class="text-sm bg-sky-50 rounded-full p-2">{{ tasks.length }}</span>
+      </span>
+      <button type="button"
+              @click="showCreateTaskForm"
+              class="flex gap-2 items-center w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition ease-in-out">
+        <PlusIcon width="24" height="24"/>
+        Create new task
+      </button>
+    </header>
     <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"
                     @task-created="handleTaskCreated"/>
     <TasksList :tasks="tasks" @task-deleted="handleTaskDeleted"/>
