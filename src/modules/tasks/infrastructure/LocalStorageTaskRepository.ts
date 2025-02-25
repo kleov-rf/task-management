@@ -14,6 +14,6 @@ export class LocalStorageTaskRepository implements TaskRepository {
     }
 
     async getAll(): Promise<Task[]> {
-        throw new Error("Method not implemented.");
+        const tasks = localStorage.getItem("tasks");
     }
 }
