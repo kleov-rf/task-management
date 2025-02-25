@@ -42,4 +42,5 @@ npm run test
 ## Features
 
 - Create new tasks with title, description, and due date
-- List all tasks in a tabular format
+- List all tasks in a tabular format 
+- Delete tasks
