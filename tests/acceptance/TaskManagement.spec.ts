@@ -1,0 +1,35 @@
+import {describe, expect, it} from "vitest";
+import {flushPromises, mount} from "@vue/test-utils";
+import App from "../../src/App.vue";
+import {LocalStorageTaskRepository} from "../../src/modules/tasks/infrastructure/LocalStorageTaskRepository";
+
+describe('Task Management', () => {
+    it('should create a task', async () => {
+        const taskRepository = new LocalStorageTaskRepository();
+        const wrapper = mount(App, {
+            global: {
+                provide: { taskRepository }
+            }
+        })
+
+        await flushPromises();
+
+        const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
+        await createNewTaskButton.trigger('click');
+
+        const titleInput = wrapper.find('label:contains("Title") + input')
+        await titleInput.setValue('Task 1')
+
+        const descriptionTextArea = wrapper.find('label:contains("Description") + textarea')
+        await descriptionTextArea.setValue('Task 1 description')
+
+        const dueDateInput = wrapper.find('label:contains("Due Date") + input')
+        await dueDateInput.setValue('2025-12-12')
+
+        const confirmButton = wrapper.findAll('button').filter(b => b.text().match(/Confirm/))[0];
+        await confirmButton.trigger('click');
+
+        const newTaskTitle = wrapper.findAll('td').filter(b => b.text().match(/Task 1/))[0];
+        expect(newTaskTitle.exists()).toBe(true)
+    })
+})
