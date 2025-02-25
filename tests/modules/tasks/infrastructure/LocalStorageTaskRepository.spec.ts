@@ -140,4 +140,15 @@ describe("LocalStorageTaskRepository", () => {
 
         expect(task).toEqual(mockTask);
     });
+    it('should return null when retrieving a task by id and task does not exist', async () => {
+        const localStorageMock = {
+            getItem: vi.fn().mockReturnValue(null)
+        };
+        Object.defineProperty(window, 'localStorage', {value: localStorageMock})
+        const repository = new LocalStorageTaskRepository();
+
+        const task = await repository.get('1');
+
+        expect(task).toBeNull();
+    });
 });
