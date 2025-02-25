@@ -22,7 +22,8 @@ const hideCreateTaskForm = () => {
       <PlusIcon width="24" height="24"/>
       Create new task
     </button>
-    <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"/>
+    <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"
+                    @task-created="hideCreateTaskForm"/>
   </main>
 </template>
 
