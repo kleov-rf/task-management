@@ -132,4 +132,32 @@ describe('Tasks component', () => {
         const newTaskTitle = wrapper.findAll('th').filter(b => b.text().match(/Task 1/))[0];
         expect(newTaskTitle.exists()).toBe(true)
     })
+    it('should call to get all tasks when tasks list emits task deleted', async () => {
+        const mockRetrievedTasks = [
+            Task.create({
+                id: '1',
+                title: 'Task 1',
+                description: 'Laptop',
+                dueDate: new Date().getTime(),
+                status: 'pending'
+            })
+        ];
+        const mockAllTasksGetter = {
+            get: vi.fn().mockResolvedValue(mockRetrievedTasks)
+        }
+        wrapper = mount(Tasks, {
+            global: {
+                provide: {
+                    allTasksGetter: mockAllTasksGetter
+                }
+            }
+        })
+
+        await flushPromises();
+
+        const createTaskFormComponent = wrapper.findComponent({name: 'TasksList'})
+        await createTaskFormComponent.vm.$emit('task-deleted')
+
+        expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
+    })
 })
