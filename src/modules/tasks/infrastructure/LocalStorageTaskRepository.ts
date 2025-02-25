@@ -4,11 +4,10 @@ import type {Primitives} from "@codelytv/primitives-type";
 
 export class LocalStorageTaskRepository implements TaskRepository {
     async save(task: Task): Promise<void> {
-        const existingTasks = localStorage.getItem("tasks");
-        const tasks = new Map();
-        const coursePrimitives = task.toPrimitives();
+        const tasks = this.getAllFromLocalStorage();
+        const taskPrimitives = task.toPrimitives();
 
-        tasks.set(coursePrimitives.id, coursePrimitives);
+        tasks.set(taskPrimitives.id, taskPrimitives);
 
         localStorage.setItem("tasks", JSON.stringify(Array.from(tasks.entries())));
 
@@ -24,5 +23,15 @@ export class LocalStorageTaskRepository implements TaskRepository {
 
         const mappedTasks = new Map(JSON.parse(tasks) as Iterable<[string, Primitives<Task>]>);
         return Promise.resolve(Array.from(mappedTasks.values()).map((task) => Task.create(task)));
+    }
+
+    private getAllFromLocalStorage(): Map<string, Primitives<Task>> {
+        const tasks = localStorage.getItem("tasks");
+
+        if (tasks === null) {
+            return new Map();
+        }
+
+        return new Map(JSON.parse(tasks) as Iterable<[string, Primitives<Task>]>);
     }
 }
