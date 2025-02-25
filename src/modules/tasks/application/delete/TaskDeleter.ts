@@ -4,6 +4,7 @@ export class TaskDeleter {
     constructor(private readonly repository: TaskRepository) {}
 
     async delete(id: string): Promise<void> {
-        throw new Error('Not implemented');
+        await this.repository.delete(id);
+        return Promise.resolve();
     }
 }
