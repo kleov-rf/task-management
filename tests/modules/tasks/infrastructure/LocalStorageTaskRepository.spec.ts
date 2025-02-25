@@ -45,6 +45,38 @@ describe("LocalStorageTaskRepository", () => {
 
         expect(localStorage.getItem).toHaveBeenCalledWith('tasks');
     });
+    it('should call localStorage with new and existing tasks when saving a task', async () => {
+        const mockExistingTaskId = '1';
+        const existingTasks = new Map().set(mockExistingTaskId, Task.create({
+            id: mockExistingTaskId,
+            title: 'Task 1',
+            description: 'hello',
+            dueDate: new Date().getTime(),
+            status: 'pending'
+        }).toPrimitives());
+        const localStorageMock = {
+            setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(JSON.stringify(Array.from(existingTasks.entries()))),
+        };
+        Object.defineProperty(window, 'localStorage', {value: localStorageMock})
+        const mockDueDate = new Date().getTime();
+        const mockTaskId = '2';
+        const mockTask = Task.create({
+            id: mockTaskId,
+            title: 'Task 2',
+            description: 'hello',
+            dueDate: mockDueDate,
+            status: 'pending'
+        });
+        const repository = new LocalStorageTaskRepository();
+
+        await repository.save(mockTask);
+
+        const mappedTasks = existingTasks;
+        mappedTasks.set(mockTaskId, mockTask.toPrimitives());
+        const expectedTasks = JSON.stringify(Array.from(mappedTasks.entries()));
+        expect(localStorage.setItem).toHaveBeenCalledWith('tasks', expectedTasks);
+    });
     it('should call localStorage when retrieving all tasks', async () => {
         const localStorageMock = {
             getItem: vi.fn().mockReturnValue(JSON.stringify([])),
