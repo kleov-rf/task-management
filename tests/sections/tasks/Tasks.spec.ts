@@ -9,7 +9,7 @@ describe('Tasks component', () => {
 
     beforeEach(async () => {
         mockAllTasksGetter = {
-            get: vi.fn()
+            get: vi.fn().mockResolvedValue([])
         }
         wrapper = mount(Tasks, {
             global: {
@@ -34,6 +34,10 @@ describe('Tasks component', () => {
         const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
         await createNewTaskButton.trigger('click');
 
+        await flushPromises();
+        await wrapper.vm.$nextTick();
+
+        console.log(wrapper.html())
         const titleInput = wrapper.find('input[name="title"]')
         expect(titleInput.exists()).toBe(true);
 
