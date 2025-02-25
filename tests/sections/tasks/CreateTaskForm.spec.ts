@@ -23,6 +23,7 @@ describe('Create Task Form component', () => {
         await confirmButton.trigger('click');
 
         expect(mockTaskCreator.create).toHaveBeenCalledWith({
+            id: expect.any(String),
             title: 'Awesome task',
             description: 'Description of the awesome task',
             dueDate: new Date('2021-12-31').getTime()

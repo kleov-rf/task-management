@@ -10,6 +10,7 @@ const dueDate = ref('');
 
 const handleCreateTask = () => {
   taskCreator.create({
+    id: Math.random().toString(36).substring(7),
     title: title.value,
     description: description.value,
     dueDate: new Date(dueDate.value).getTime()

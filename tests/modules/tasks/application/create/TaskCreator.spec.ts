@@ -11,10 +11,10 @@ describe('TaskCreator', () => {
         const taskCreator = new TaskCreator(mockTaskRepository);
 
         let mockDueDate = new Date().getTime();
-        await taskCreator.create({title: 'Task title', description: 'Task description', dueDate: mockDueDate});
+        await taskCreator.create({id: '1', title: 'Task title', description: 'Task description', dueDate: mockDueDate});
 
         let expectedTask = Task.create({
-            id: expect.any(String),
+            id: '1',
             title: 'Task title',
             description: 'Task description',
             dueDate: mockDueDate,
