@@ -1,6 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
 import {flushPromises, mount, VueWrapper} from "@vue/test-utils";
 import Tasks from "../../../src/sections/tasks/Tasks.vue";
+import {Task} from "../../../src/modules/tasks/domain/Task";
 
 describe('Tasks component', () => {
     let mockAllTasksGetter;
@@ -86,5 +87,46 @@ describe('Tasks component', () => {
         await createTaskFormComponent.vm.$emit('task-created')
 
         expect(mockAllTasksGetter.get).toHaveBeenCalled()
+    })
+    it('should show all tasks retrieved from all tasks getter when create task form emits task created', async () => {
+        const mockRetrievedTasks = [
+            Task.create({
+                id: '1',
+                title: 'Task 1',
+                description: 'Laptop',
+                dueDate: new Date().getTime(),
+                status: 'pending'
+            })
+        ];
+        const mockAllTasksGetter = {
+            get: vi.fn().mockResolvedValue(mockRetrievedTasks)
+        }
+        wrapper = mount(Tasks, {
+            global: {
+                provide: {
+                    allTasksGetter: mockAllTasksGetter
+                }
+            }
+        })
+
+        await flushPromises();
+
+        const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
+        await createNewTaskButton.trigger('click');
+
+        let titleInput = wrapper.find('input[name="title"]')
+        expect(titleInput.exists()).toBe(true);
+
+        const createTaskFormComponent = wrapper.findComponent({name: 'CreateTaskForm'})
+        await createTaskFormComponent.vm.$emit('task-created')
+
+        await flushPromises();
+        await wrapper.vm.$nextTick();
+
+        const tasks = wrapper.findAll('.task')
+        expect(tasks.length).toBe(mockRetrievedTasks.length);
+
+        const newTaskTitle = wrapper.findAll('th').filter(b => b.text().match(/Task 1/))[0];
+        expect(newTaskTitle.exists()).toBe(true)
     })
 })
