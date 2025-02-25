@@ -27,6 +27,9 @@ describe('Tasks component', () => {
         wrapper.unmount();
     })
 
+    it('should call to get all tasks when component is mounted', () => {
+        expect(mockAllTasksGetter.get).toHaveBeenCalled()
+    })
     it('should show create task form fields when clicking on create new task button', async () => {
         const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
         await createNewTaskButton.trigger('click');
