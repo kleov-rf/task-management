@@ -6,19 +6,22 @@ const taskCreator = inject('taskCreator') as TaskCreator;
 
 const emit = defineEmits<{
   (e: 'cancel-create-task'): void;
+  (e: 'task-created'): void;
 }>();
 
 const title = ref('');
 const description = ref('');
 const dueDate = ref('');
 
-const handleCreateTask = () => {
-  taskCreator.create({
+const handleCreateTask = async () => {
+  await taskCreator.create({
     id: Math.random().toString(36).substring(7),
     title: title.value,
     description: description.value,
     dueDate: new Date(dueDate.value).getTime()
   });
+
+  emit('task-created');
 }
 </script>
 
