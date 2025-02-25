@@ -12,9 +12,17 @@ describe('Tasks list component', () => {
             dueDate: new Date().getTime(),
             status: 'pending'
         });
+        const mockTaskDeleter = {
+            delete: vi.fn()
+        }
         const wrapper = mount(TasksList, {
             props: {
                 tasks: [mockTask]
+            },
+            global: {
+                provide: {
+                    taskDeleter: mockTaskDeleter
+                }
             }
         });
 
