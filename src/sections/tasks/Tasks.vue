@@ -24,6 +24,10 @@ const handleTaskCreated = async () => {
   tasks.value = await allTasksGetter.get();
 };
 
+const handleTaskDeleted = async () => {
+  tasks.value = await allTasksGetter.get();
+};
+
 onMounted(async () => {
   tasks.value = await allTasksGetter.get();
 });
@@ -39,7 +43,7 @@ onMounted(async () => {
     </button>
     <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"
                     @task-created="handleTaskCreated"/>
-    <TasksList :tasks="tasks"/>
+    <TasksList :tasks="tasks" @task-deleted="handleTaskDeleted"/>
   </main>
 </template>
 
