@@ -24,6 +24,27 @@ describe("LocalStorageTaskRepository", () => {
         const expectedTask = JSON.stringify(Array.from(new Map().set(mockTaskId, mockTask.toPrimitives()).entries()));
         expect(localStorage.setItem).toHaveBeenCalledWith('tasks', expectedTask);
     });
+    it('should call localStorage when saving a task to get existing tasks', async () => {
+        const localStorageMock = {
+            setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(JSON.stringify([])),
+        };
+        Object.defineProperty(window, 'localStorage', {value: localStorageMock})
+        const mockDueDate = new Date().getTime();
+        const mockTaskId = '1';
+        const mockTask = Task.create({
+            id: mockTaskId,
+            title: 'Task 1',
+            description: 'hello',
+            dueDate: mockDueDate,
+            status: 'pending'
+        });
+        const repository = new LocalStorageTaskRepository();
+
+        await repository.save(mockTask);
+
+        expect(localStorage.getItem).toHaveBeenCalledWith('tasks');
+    });
     it('should call localStorage when retrieving all tasks', async () => {
         const localStorageMock = {
             getItem: vi.fn().mockReturnValue(JSON.stringify([])),
