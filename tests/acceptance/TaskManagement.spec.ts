@@ -55,4 +55,30 @@ describe('Task Management', () => {
         const task2Title = wrapper.findAll('th').filter(b => b.text().match(/Task 2/))[0];
         expect(task2Title.exists()).toBe(true)
     });
+    it('should delete a task', async () => {
+        const taskRepository = new LocalStorageTaskRepository();
+        const taskCreator = new TaskCreator(taskRepository);
+        const allTasksGetter = new AllTasksGetter(taskRepository);
+        const wrapper = mount(App, {
+            global: {
+                provide: {taskCreator, allTasksGetter}
+            }
+        })
+
+        await flushPromises();
+
+        await createTask(wrapper, 'Task 1', 'Task 1 description', '2026-12-12');
+
+        await flushPromises();
+        await wrapper.vm.$nextTick();
+
+        const deleteButton = wrapper.findAll('button').filter(b => b.text().match(/Delete/))[0];
+        await deleteButton.trigger('click');
+
+        await flushPromises();
+        await wrapper.vm.$nextTick();
+
+        const task1Title = wrapper.findAll('th').filter(b => b.text().match(/Task 1/))[0];
+        expect(task1Title.exists()).toBe(false)
+    })
 })
