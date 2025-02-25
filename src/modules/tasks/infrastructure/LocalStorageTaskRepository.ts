@@ -45,4 +45,11 @@ export class LocalStorageTaskRepository implements TaskRepository {
 
         return Promise.resolve(Task.create(task));
     }
+
+    async delete(id: string): Promise<void> {
+        const tasks = this.getAllFromLocalStorage();
+        tasks.delete(id);
+
+        localStorage.setItem("tasks", JSON.stringify(Array.from(tasks.entries())));
+    }
 }
