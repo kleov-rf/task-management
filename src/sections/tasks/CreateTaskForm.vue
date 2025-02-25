@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import {TaskCreator} from "../../modules/tasks/application/create/TaskCreator.ts";
+import {inject} from "vue";
 
+const taskCreator = inject('taskCreator') as TaskCreator;
+const handleCreateTask = () => {
+  taskCreator.create('', '', new Date().getTime());
+}
 </script>
 
 <template>
@@ -33,6 +39,12 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
       />
     </div>
+
+    <button type="button"
+            @click="handleCreateTask"
+            class="flex gap-2 items-center w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-3">
+      Confirm
+    </button>
   </form>
 </template>
 
