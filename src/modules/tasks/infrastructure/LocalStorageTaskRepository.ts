@@ -3,6 +3,13 @@ import type {Task} from "../domain/Task.ts";
 
 export class LocalStorageTaskRepository implements TaskRepository {
     save(task: Task): Promise<void> {
-        throw new Error("Method not implemented.");
+        const tasks = new Map();
+        const coursePrimitives = task.toPrimitives();
+
+        tasks.set(coursePrimitives.id, coursePrimitives);
+
+        localStorage.setItem("tasks", JSON.stringify(Array.from(tasks.entries())));
+
+        return Promise.resolve();
     }
 }
