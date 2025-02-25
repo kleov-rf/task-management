@@ -7,12 +7,26 @@ describe('TaskDeleter', () => {
         const mockTaskRepository = {
             delete: vi.fn(),
             getAll: vi.fn(),
-            save: vi.fn()
+            save: vi.fn(),
+            get: vi.fn()
         } as TaskRepository
         const taskDeleter = new TaskDeleter(mockTaskRepository);
 
         await taskDeleter.delete('1');
 
         expect(mockTaskRepository.delete).toHaveBeenCalledWith('1');
+    });
+    it('should call repository to check if task exists', async () => {
+        const mockTaskRepository = {
+            delete: vi.fn(),
+            getAll: vi.fn(),
+            save: vi.fn(),
+            get: vi.fn()
+        } as TaskRepository
+        const taskDeleter = new TaskDeleter(mockTaskRepository);
+
+        await taskDeleter.delete('1');
+
+        expect(mockTaskRepository.get).toHaveBeenCalledWith('1');
     });
 })
