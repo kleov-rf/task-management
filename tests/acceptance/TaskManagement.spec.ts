@@ -2,13 +2,15 @@ import {describe, expect, it} from "vitest";
 import {flushPromises, mount} from "@vue/test-utils";
 import App from "../../src/App.vue";
 import {LocalStorageTaskRepository} from "../../src/modules/tasks/infrastructure/LocalStorageTaskRepository";
+import {TaskCreator} from "../../src/modules/tasks/application/create/TaskCreator";
 
 describe('Task Management', () => {
     it('should create a task', async () => {
         const taskRepository = new LocalStorageTaskRepository();
+        const taskCreator = new TaskCreator(taskRepository);
         const wrapper = mount(App, {
             global: {
-                provide: { taskRepository }
+                provide: { taskRepository, taskCreator }
             }
         })
 
