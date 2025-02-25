@@ -5,6 +5,10 @@ import TrashBinIcon from "./icons/TrashBinIcon.vue";
 defineProps<{
   tasks: Task[]
 }>()
+
+const emit = defineEmits<{
+  (e: 'task-deleted'): void;
+}>()
 </script>
 
 <template>
@@ -51,6 +55,7 @@ defineProps<{
         </td>
         <td class="flex justify-end px-6 py-4">
           <button type="button"
+                  @click="emit('task-deleted')"
                   class="flex gap-2 items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2">
             <TrashBinIcon width="16" height="16"/>
             Delete
