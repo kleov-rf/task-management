@@ -1,9 +1,10 @@
 import {describe, expect, it} from "vitest";
-import {flushPromises, mount, VueWrapper} from "@vue/test-utils";
+import {flushPromises, mount} from "@vue/test-utils";
 import App from "../../src/App.vue";
 import {LocalStorageTaskRepository} from "../../src/modules/tasks/infrastructure/LocalStorageTaskRepository";
 import {TaskCreator} from "../../src/modules/tasks/application/create/TaskCreator";
 import {AllTasksGetter} from "../../src/modules/tasks/application/get-all/AllTasksGetter";
+import {createTask} from "./utils/createTask";
 
 describe('Task Management', () => {
     it('should create a task', async () => {
@@ -55,20 +56,3 @@ describe('Task Management', () => {
         expect(task2Title.exists()).toBe(true)
     });
 })
-
-const createTask = async (wrapper: VueWrapper, title: string, description: string, dueDate: string) => {
-    const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
-    await createNewTaskButton.trigger('click');
-
-    const titleInput = wrapper.find('input[name="title"]')
-    await titleInput.setValue(title)
-
-    const descriptionTextArea = wrapper.find('textarea[name="description"]')
-    await descriptionTextArea.setValue(description)
-
-    const dueDateInput = wrapper.find('input[name="dueDate"]')
-    await dueDateInput.setValue(dueDate)
-
-    const confirmButton = wrapper.findAll('button').filter(b => b.text().match(/Confirm/))[0];
-    await confirmButton.trigger('click');
-}
