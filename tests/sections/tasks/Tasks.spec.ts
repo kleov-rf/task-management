@@ -20,4 +20,18 @@ describe('Tasks component', () => {
         const dueDateInput = wrapper.find('input[name="dueDate"]')
         expect(dueDateInput.exists()).toBe(true);
     })
+    it('should not show create task form fields if not clicked on create new task button', async () => {
+        const wrapper = mount(Tasks)
+
+        await flushPromises()
+
+        const titleInput = wrapper.find('input[name="title"]')
+        expect(titleInput.exists()).toBe(false);
+
+        const descriptionTextArea = wrapper.find('textarea[name="description"]')
+        expect(descriptionTextArea.exists()).toBe(false);
+
+        const dueDateInput = wrapper.find('input[name="dueDate"]')
+        expect(dueDateInput.exists()).toBe(false);
+    })
 })
