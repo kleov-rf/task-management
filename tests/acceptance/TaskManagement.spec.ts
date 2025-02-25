@@ -12,7 +12,7 @@ describe('Task Management', () => {
         const allTasksGetter = new AllTasksGetter(taskRepository);
         const wrapper = mount(App, {
             global: {
-                provide: {taskRepository, taskCreator, allTasksGetter}
+                provide: {taskCreator, allTasksGetter}
             }
         })
 
