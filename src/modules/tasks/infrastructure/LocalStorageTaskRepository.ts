@@ -15,5 +15,7 @@ export class LocalStorageTaskRepository implements TaskRepository {
 
     async getAll(): Promise<Task[]> {
         const tasks = localStorage.getItem("tasks");
+
+        return [];
     }
 }
