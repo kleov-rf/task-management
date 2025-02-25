@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import {TaskCreator} from "../../modules/tasks/application/create/TaskCreator.ts";
-import {inject} from "vue";
+import {inject, ref} from "vue";
 
 const taskCreator = inject('taskCreator') as TaskCreator;
+
+const title = ref('');
+const description = ref('');
+const dueDate = ref('');
+
 const handleCreateTask = () => {
-  taskCreator.create('', '', new Date().getTime());
+  taskCreator.create({
+    title: title.value,
+    description: description.value,
+    dueDate: new Date(dueDate.value).getTime()
+  });
 }
 </script>
 
@@ -16,6 +25,7 @@ const handleCreateTask = () => {
           type="text"
           id="title"
           name="title"
+          v-model="title"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
       />
     </div>
@@ -26,6 +36,7 @@ const handleCreateTask = () => {
           id="description"
           name="description"
           rows="3"
+          v-model="description"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
       ></textarea>
     </div>
@@ -36,6 +47,7 @@ const handleCreateTask = () => {
           type="date"
           id="dueDate"
           name="dueDate"
+          v-model="dueDate"
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
       />
     </div>
