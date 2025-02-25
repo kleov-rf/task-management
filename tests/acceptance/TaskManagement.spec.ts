@@ -33,7 +33,10 @@ describe('Task Management', () => {
         const confirmButton = wrapper.findAll('button').filter(b => b.text().match(/Confirm/))[0];
         await confirmButton.trigger('click');
 
-        const newTaskTitle = wrapper.findAll('td').filter(b => b.text().match(/Task 1/))[0];
+        await flushPromises();
+        await wrapper.vm.$nextTick();
+
+        const newTaskTitle = wrapper.findAll('th').filter(b => b.text().match(/Task 1/))[0];
         expect(newTaskTitle.exists()).toBe(true)
     })
 })

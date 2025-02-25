@@ -3,7 +3,7 @@ import {Task} from "../domain/Task.ts";
 import type {Primitives} from "@codelytv/primitives-type";
 
 export class LocalStorageTaskRepository implements TaskRepository {
-    save(task: Task): Promise<void> {
+    async save(task: Task): Promise<void> {
         const tasks = new Map();
         const coursePrimitives = task.toPrimitives();
 

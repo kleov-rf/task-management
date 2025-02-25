@@ -40,3 +40,5 @@ npm run test
 - **TailwindCSS**: Used for styling to maintain consistency and rapid development.
 
 ## Features
+
+- Create new tasks with title, description, and due date
