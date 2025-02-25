@@ -11,13 +11,13 @@ describe('Tasks component', () => {
         const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
         await createNewTaskButton.trigger('click');
 
-        const titleInput = wrapper.find('label:contains("Title") + input')
+        const titleInput = wrapper.find('input[name="title"]')
         expect(titleInput.exists()).toBe(true);
 
-        const descriptionTextArea = wrapper.find('label:contains("Description") + textarea')
+        const descriptionTextArea = wrapper.find('textarea[name="description"]')
         expect(descriptionTextArea.exists()).toBe(true);
 
-        const dueDateInput = wrapper.find('label:contains("Due Date") + input')
+        const dueDateInput = wrapper.find('input[name="dueDate"]')
         expect(dueDateInput.exists()).toBe(true);
     })
 })

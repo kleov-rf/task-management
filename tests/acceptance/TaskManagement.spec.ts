@@ -17,13 +17,13 @@ describe('Task Management', () => {
         const createNewTaskButton = wrapper.findAll('button').filter(b => b.text().match(/Create new task/))[0];
         await createNewTaskButton.trigger('click');
 
-        const titleInput = wrapper.find('label:contains("Title") + input')
+        const titleInput = wrapper.find('input[name="title"]')
         await titleInput.setValue('Task 1')
 
-        const descriptionTextArea = wrapper.find('label:contains("Description") + textarea')
+        const descriptionTextArea = wrapper.find('textarea[name="description"]')
         await descriptionTextArea.setValue('Task 1 description')
 
-        const dueDateInput = wrapper.find('label:contains("Due Date") + input')
+        const dueDateInput = wrapper.find('input[name="dueDate"]')
         await dueDateInput.setValue('2025-12-12')
 
         const confirmButton = wrapper.findAll('button').filter(b => b.text().match(/Confirm/))[0];
