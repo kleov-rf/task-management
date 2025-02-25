@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {inject, ref} from "vue";
+import {inject, onMounted, ref} from "vue";
 import CreateTaskForm from "./CreateTaskForm.vue";
 import PlusIcon from "./icons/PlusIcon.vue";
 import type {AllTasksGetter} from "../../modules/tasks/application/get-all/AllTasksGetter.ts";
@@ -23,6 +23,10 @@ const handleTaskCreated = async () => {
   hideCreateTaskForm();
   tasks.value = await allTasksGetter.get();
 };
+
+onMounted(async () => {
+  tasks.value = await allTasksGetter.get();
+});
 </script>
 
 <template>
