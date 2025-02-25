@@ -48,7 +48,7 @@ describe('Create Task Form component', () => {
     });
     it('should emit task created event when task is created', async () => {
         const mockTaskCreator = {
-            create: vi.fn().mockResolvedValue()
+            create: vi.fn().mockResolvedValue({})
         }
         const wrapper = mount(CreateTaskForm, {
             global: {
@@ -69,7 +69,7 @@ describe('Create Task Form component', () => {
     });
     it('should not emit task created event is task creation fails', async () => {
         const mockTaskCreator = {
-            create: vi.fn().mockRejectedValue()
+            create: vi.fn().mockRejectedValue('Error')
         }
         const wrapper = mount(CreateTaskForm, {
             global: {

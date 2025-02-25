@@ -1,4 +1,4 @@
-import {afterEach, beforeEach, describe, expect, it} from "vitest";
+import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
 import {flushPromises, mount, VueWrapper} from "@vue/test-utils";
 import Tasks from "../../../src/sections/tasks/Tasks.vue";
 
