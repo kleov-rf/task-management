@@ -8,6 +8,10 @@ const isShowingCreateTaskForm = ref(false);
 const showCreateTaskForm = () => {
   isShowingCreateTaskForm.value = true;
 };
+
+const hideCreateTaskForm = () => {
+  isShowingCreateTaskForm.value = false;
+};
 </script>
 
 <template>
@@ -18,7 +22,7 @@ const showCreateTaskForm = () => {
       <PlusIcon width="24" height="24"/>
       Create new task
     </button>
-    <CreateTaskForm v-if="isShowingCreateTaskForm"/>
+    <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"/>
   </main>
 </template>
 
