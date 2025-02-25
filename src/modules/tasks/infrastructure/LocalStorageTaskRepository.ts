@@ -39,6 +39,10 @@ export class LocalStorageTaskRepository implements TaskRepository {
         const tasks = this.getAllFromLocalStorage();
         const task = tasks.get(id);
 
+        if (!task) {
+            return Promise.resolve(null);
+        }
+
         return Promise.resolve(Task.create(task));
     }
 }
