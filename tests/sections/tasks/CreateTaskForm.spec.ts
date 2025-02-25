@@ -29,4 +29,21 @@ describe('Create Task Form component', () => {
             dueDate: new Date('2021-12-31').getTime()
         });
     });
+    it('should emit cancel event when cancel button is clicked', async () => {
+        const mockTaskCreator = {
+            create: vi.fn()
+        }
+        const wrapper = mount(CreateTaskForm, {
+            global: {
+                provide: {
+                    taskCreator: mockTaskCreator
+                }
+            }
+        });
+
+        const cancelButton = wrapper.findAll('button').filter(b => b.text().match(/Cancel/))[0];
+        await cancelButton.trigger('click');
+
+        expect(wrapper.emitted('cancel-create-task')).toBeTruthy();
+    });
 });
