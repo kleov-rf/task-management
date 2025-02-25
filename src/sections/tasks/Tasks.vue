@@ -3,10 +3,13 @@ import {inject, ref} from "vue";
 import CreateTaskForm from "./CreateTaskForm.vue";
 import PlusIcon from "./icons/PlusIcon.vue";
 import type {AllTasksGetter} from "../../modules/tasks/application/get-all/AllTasksGetter.ts";
+import type {Task} from "../../modules/tasks/domain/Task.ts";
+import TasksList from "./TasksList.vue";
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter;
 
 const isShowingCreateTaskForm = ref(false);
+const tasks = ref<Task[]>([]);
 
 const showCreateTaskForm = () => {
   isShowingCreateTaskForm.value = true;
@@ -16,9 +19,9 @@ const hideCreateTaskForm = () => {
   isShowingCreateTaskForm.value = false;
 };
 
-const handleTaskCreated = () => {
+const handleTaskCreated = async () => {
   hideCreateTaskForm();
-  allTasksGetter.get();
+  tasks.value = await allTasksGetter.get();
 };
 </script>
 
@@ -32,6 +35,7 @@ const handleTaskCreated = () => {
     </button>
     <CreateTaskForm v-if="isShowingCreateTaskForm" @cancel-create-task="hideCreateTaskForm"
                     @task-created="handleTaskCreated"/>
+    <TasksList :tasks="tasks"/>
   </main>
 </template>
 
