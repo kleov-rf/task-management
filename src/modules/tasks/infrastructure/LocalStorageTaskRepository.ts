@@ -1,5 +1,6 @@
 import type {TaskRepository} from "../domain/TaskRepository.ts";
-import type {Task} from "../domain/Task.ts";
+import {Task} from "../domain/Task.ts";
+import type {Primitives} from "@codelytv/primitives-type";
 
 export class LocalStorageTaskRepository implements TaskRepository {
     save(task: Task): Promise<void> {
@@ -16,6 +17,11 @@ export class LocalStorageTaskRepository implements TaskRepository {
     async getAll(): Promise<Task[]> {
         const tasks = localStorage.getItem("tasks");
 
-        return [];
+        if (tasks === null) {
+            return [];
+        }
+
+        const mappedTasks = new Map(JSON.parse(tasks) as Iterable<[string, Primitives<Task>]>);
+        return Promise.resolve(Array.from(mappedTasks.values()).map((task) => Task.create(task)));
     }
 }
