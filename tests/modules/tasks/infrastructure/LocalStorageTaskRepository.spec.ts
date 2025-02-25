@@ -46,4 +46,24 @@ describe("LocalStorageTaskRepository", () => {
 
         expect(tasks).toEqual([]);
     });
+    it('should return an array of tasks when there are tasks in localStorage', async () => {
+        const mockDueDate = new Date().getTime();
+        const mockTaskId = '1';
+        const mockTask = Task.create({
+            id: mockTaskId,
+            title: 'Task 1',
+            description: 'hello',
+            dueDate: mockDueDate,
+            status: 'pending'
+        });
+        const localStorageMock = {
+            getItem: vi.fn().mockReturnValue(JSON.stringify(Array.from(new Map().set(mockTaskId, mockTask.toPrimitives()).entries())))
+        };
+        Object.defineProperty(window, 'localStorage', {value: localStorageMock})
+        const repository = new LocalStorageTaskRepository();
+
+        const tasks = await repository.getAll();
+
+        expect(tasks).toEqual([mockTask]);
+    });
 });
