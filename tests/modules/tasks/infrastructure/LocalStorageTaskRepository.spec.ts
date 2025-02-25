@@ -6,6 +6,7 @@ describe("LocalStorageTaskRepository", () => {
     it('should call localStorage when saving a task', async () => {
         const localStorageMock = {
             setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(null),
         };
         Object.defineProperty(window, 'localStorage', {value: localStorageMock})
         const mockDueDate = new Date().getTime();
