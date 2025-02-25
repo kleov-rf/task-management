@@ -2,6 +2,7 @@
 import {inject, ref} from "vue";
 import CreateTaskForm from "./CreateTaskForm.vue";
 import PlusIcon from "./icons/PlusIcon.vue";
+import type {AllTasksGetter} from "../../modules/tasks/application/get-all/AllTasksGetter.ts";
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter;
 

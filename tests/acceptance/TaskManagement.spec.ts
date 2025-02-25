@@ -3,14 +3,16 @@ import {flushPromises, mount} from "@vue/test-utils";
 import App from "../../src/App.vue";
 import {LocalStorageTaskRepository} from "../../src/modules/tasks/infrastructure/LocalStorageTaskRepository";
 import {TaskCreator} from "../../src/modules/tasks/application/create/TaskCreator";
+import {AllTasksGetter} from "../../src/modules/tasks/application/get-all/AllTasksGetter";
 
 describe('Task Management', () => {
     it('should create a task', async () => {
         const taskRepository = new LocalStorageTaskRepository();
         const taskCreator = new TaskCreator(taskRepository);
+        const allTasksGetter = new AllTasksGetter(taskRepository);
         const wrapper = mount(App, {
             global: {
-                provide: { taskRepository, taskCreator }
+                provide: {taskRepository, taskCreator, allTasksGetter}
             }
         })
 
