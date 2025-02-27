@@ -88,4 +88,21 @@ describe('Create Task Form component', () => {
 
         expect(wrapper.emitted('task-created')).toBeFalsy();
     });
+    it('should focus on title input when component is mounted', async () => {
+        const mockTaskCreator = {
+            create: vi.fn()
+        }
+        const wrapper = mount(CreateTaskForm, {
+            global: {
+                provide: {
+                    taskCreator: mockTaskCreator
+                }
+            },
+            attachTo: document.body
+        });
+
+        const titleInput = wrapper.find('input[name="title"]').element;
+        expect(titleInput).toBe(document.activeElement);
+        wrapper.unmount();
+    });
 });
