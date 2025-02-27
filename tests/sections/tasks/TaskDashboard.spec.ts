@@ -178,7 +178,7 @@ describe('TaskDashboard component', () => {
 
     await flushPromises()
 
-    const createTaskFormComponent = wrapper.findComponent({ name: 'TasksList' })
+    const createTaskFormComponent = wrapper.findComponent({ name: 'TaskList' })
     await createTaskFormComponent.vm.$emit('task-deleted')
 
     expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
