@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {TaskCreator} from "../../modules/tasks/application/create/TaskCreator.ts";
-import {inject, ref} from "vue";
+import {inject, onMounted, ref} from "vue";
+import {HTMLInputElement} from "happy-dom";
 
 const taskCreator = inject('taskCreator') as TaskCreator;
 
@@ -9,7 +10,7 @@ const emit = defineEmits<{
   (e: 'task-created'): void;
 }>();
 
-const title = ref('');
+const titleInput = ref<HTMLInputElement | null>(null);
 const description = ref('');
 const dueDate = ref('');
 
@@ -17,7 +18,7 @@ const handleCreateTask = async () => {
   try {
     await taskCreator.create({
       id: Math.random().toString(36).substring(7),
-      title: title.value,
+      title: titleInput.value?.value ?? '',
       description: description.value,
       dueDate: new Date(dueDate.value).getTime()
     });
@@ -27,6 +28,10 @@ const handleCreateTask = async () => {
     console.error(e);
   }
 }
+
+onMounted(() => {
+  titleInput.value?.focus();
+});
 </script>
 
 <template>
@@ -37,9 +42,9 @@ const handleCreateTask = async () => {
       <section>
         <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
         <input type="text" id="title"
+               ref="titleInput"
                required
                name="title"
-               v-model="title"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                placeholder="Creating user stories..."/>
       </section>
