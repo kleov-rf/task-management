@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Task } from '../../modules/tasks/domain/Task.ts'
+import type { Task } from '@/modules/tasks/domain/Task.ts'
 import TrashBinIcon from './icons/TrashBinIcon.vue'
 import { inject } from 'vue'
-import type { TaskDeleter } from '../../modules/tasks/application/delete/TaskDeleter.ts'
+import type { TaskDeleter } from '@/modules/tasks/application/delete/TaskDeleter.ts'
 
 defineProps<{
   tasks: Task[]

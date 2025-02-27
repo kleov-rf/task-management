@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TaskCreator } from '../../modules/tasks/application/create/TaskCreator.ts'
+import { TaskCreator } from '@/modules/tasks/application/create/TaskCreator.ts'
 import { inject, onMounted, ref } from 'vue'
 import { HTMLInputElement } from 'happy-dom'
 
