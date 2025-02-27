@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { flushPromises, mount, VueWrapper } from '@vue/test-utils'
-import Tasks from '../../../src/sections/tasks/Tasks.vue'
+import TaskDashboard from '../../../src/sections/tasks/TaskDashboard.vue'
 import { Task } from '../../../src/modules/tasks/domain/Task'
 
-describe('Tasks component', () => {
+describe('TaskDashboard component', () => {
   let mockAllTasksGetter
   let wrapper: VueWrapper
 
@@ -11,7 +11,7 @@ describe('Tasks component', () => {
     mockAllTasksGetter = {
       get: vi.fn().mockResolvedValue([])
     }
-    wrapper = mount(Tasks, {
+    wrapper = mount(TaskDashboard, {
       global: {
         provide: {
           allTasksGetter: mockAllTasksGetter
@@ -121,7 +121,7 @@ describe('Tasks component', () => {
     const mockAllTasksGetter = {
       get: vi.fn().mockResolvedValue(mockRetrievedTasks)
     }
-    wrapper = mount(Tasks, {
+    wrapper = mount(TaskDashboard, {
       global: {
         provide: {
           allTasksGetter: mockAllTasksGetter
@@ -168,7 +168,7 @@ describe('Tasks component', () => {
     const mockAllTasksGetter = {
       get: vi.fn().mockResolvedValue(mockRetrievedTasks)
     }
-    wrapper = mount(Tasks, {
+    wrapper = mount(TaskDashboard, {
       global: {
         provide: {
           allTasksGetter: mockAllTasksGetter

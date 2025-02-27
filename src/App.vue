@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Tasks from './sections/tasks/Tasks.vue'
+import TaskDashboard from './sections/tasks/TaskDashboard.vue'
 import CalendarEditIcon from './sections/tasks/icons/CalendarEditIcon.vue'
 </script>
 
@@ -10,7 +10,7 @@ import CalendarEditIcon from './sections/tasks/icons/CalendarEditIcon.vue'
         <CalendarEditIcon width="48" height="48" />
         <h1 class="text-5xl font-extrabold">Task Manager</h1>
       </header>
-      <Tasks />
+      <TaskDashboard />
     </section>
   </section>
 </template>
