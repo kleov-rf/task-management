@@ -36,6 +36,7 @@ onMounted(() => {
 
 <template>
   <dialog
+    @keydown.esc="emit('cancel-create-task')"
     class="absolute flex justify-center items-center inset-0 w-full h-full backdrop-blur-[2px] bg-black/25 z-10"
   >
     <form class="w-96 flex flex-col gap-6 p-6 bg-white rounded-lg shadow-md">
