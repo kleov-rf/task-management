@@ -37,7 +37,6 @@ describe('Tasks component', () => {
         await flushPromises();
         await wrapper.vm.$nextTick();
 
-        console.log(wrapper.html())
         const titleInput = wrapper.find('input[name="title"]')
         expect(titleInput.exists()).toBe(true);
 
