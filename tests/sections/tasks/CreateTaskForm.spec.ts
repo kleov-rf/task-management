@@ -52,6 +52,22 @@ describe('Create Task Form component', () => {
 
     expect(wrapper.emitted('cancel-create-task')).toBeTruthy()
   })
+  it('should emit cancel event when user presses escape key', async () => {
+    const mockTaskCreator = {
+      create: vi.fn()
+    }
+    const wrapper = mount(CreateTaskForm, {
+      global: {
+        provide: {
+          taskCreator: mockTaskCreator
+        }
+      }
+    })
+
+    await wrapper.get('dialog').trigger('keydown.esc')
+
+    expect(wrapper.emitted('cancel-create-task')).toBeTruthy()
+  })
   it('should emit task created event when task is created', async () => {
     const mockTaskCreator = {
       create: vi.fn().mockResolvedValue({})
