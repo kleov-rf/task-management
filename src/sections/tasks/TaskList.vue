@@ -38,6 +38,7 @@ const handleDeleteTask = async (id: string) => {
       <tbody>
         <tr
           v-for="task in tasks"
+          :key="task.id"
           class="task bg-white border-b border-gray-200 hover:bg-gray-50"
         >
           <td class="px-6 py-4">

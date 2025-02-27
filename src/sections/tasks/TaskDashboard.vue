@@ -4,7 +4,7 @@ import CreateTaskForm from './CreateTaskForm.vue'
 import PlusIcon from './icons/PlusIcon.vue'
 import type { AllTasksGetter } from '../../modules/tasks/application/get-all/AllTasksGetter.ts'
 import type { Task } from '../../modules/tasks/domain/Task.ts'
-import TasksList from './TasksList.vue'
+import TaskList from './TaskList.vue'
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
 
@@ -56,7 +56,7 @@ onMounted(async () => {
       @cancel-create-task="hideCreateTaskForm"
       @task-created="handleTaskCreated"
     />
-    <TasksList :tasks="tasks" @task-deleted="handleTaskDeleted" />
+    <TaskList :tasks="tasks" @task-deleted="handleTaskDeleted" />
   </main>
 </template>
 
