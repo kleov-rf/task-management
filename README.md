@@ -7,9 +7,9 @@ This is a simple task management application built with Vue.js, following clean 
 The project follows a clean architecture approach with the following structure:
 
 - `src/modules`: Contains the core business logic organized by domain
-    - `domain`: Contains business entities and repository interfaces
-    - `application`: Contains use cases and application services
-    - `infrastructure`: Contains implementations of repository interfaces
+  - `domain`: Contains business entities and repository interfaces
+  - `application`: Contains use cases and application services
+  - `infrastructure`: Contains implementations of repository interfaces
 - `src/sections`: Contains the UI components organized by domain
 - `tests/acceptance`: Contains acceptance tests for the application
 - `tests`: Contains unit tests for the core business logic
@@ -17,16 +17,19 @@ The project follows a clean architecture approach with the following structure:
 ## Development Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Run development server:
+
 ```bash
 npm run dev
 ```
 
 3. Run tests:
+
 ```bash
 npm run test
 ```
@@ -42,5 +45,5 @@ npm run test
 ## Features
 
 - Create new tasks with title, description, and due date
-- List all tasks in a tabular format 
+- List all tasks in a tabular format
 - Delete tasks

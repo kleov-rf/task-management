@@ -1,17 +1,17 @@
-import {describe, expect, it, vi} from "vitest";
-import {AllTasksGetter} from "../../../../../src/modules/tasks/application/get-all/AllTasksGetter";
-import {TaskRepository} from "../../../../../src/modules/tasks/domain/TaskRepository";
+import { describe, expect, it, vi } from 'vitest'
+import { AllTasksGetter } from '../../../../../src/modules/tasks/application/get-all/AllTasksGetter'
+import { TaskRepository } from '../../../../../src/modules/tasks/domain/TaskRepository'
 
 describe('AllTasksGetter', () => {
-    it('should call task repository to get all tasks', async () => {
-        const taskRepository = {
-            getAll: vi.fn(),
-            save: vi.fn()
-        } as TaskRepository;
-        const allTasksGetter = new AllTasksGetter(taskRepository);
+  it('should call task repository to get all tasks', async () => {
+    const taskRepository = {
+      getAll: vi.fn(),
+      save: vi.fn()
+    } as TaskRepository
+    const allTasksGetter = new AllTasksGetter(taskRepository)
 
-        await allTasksGetter.get();
+    await allTasksGetter.get()
 
-        expect(taskRepository.getAll).toHaveBeenCalled();
-    });
-});
+    expect(taskRepository.getAll).toHaveBeenCalled()
+  })
+})
