@@ -48,6 +48,16 @@ describe('TaskDashboard component', () => {
     const dueDateInput = wrapper.find('input[name="dueDate"]')
     expect(dueDateInput.exists()).toBe(true)
   })
+  it('should set inert to main element when clicking on create new task button', async () => {
+    const mainElement = wrapper.find('main')
+    const createNewTaskButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Create new task/))[0]
+
+    await createNewTaskButton.trigger('click')
+
+    expect(mainElement.attributes('inert')).toBe('')
+  })
   it('should not show create task form fields if not clicked on create new task button', async () => {
     const titleInput = wrapper.find('input[name="title"]')
     expect(titleInput.exists()).toBe(false)
