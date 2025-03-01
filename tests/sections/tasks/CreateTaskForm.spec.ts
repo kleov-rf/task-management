@@ -146,4 +146,12 @@ describe('Create Task Form component', () => {
 
     expect(closeSpy).toHaveBeenCalled()
   })
+  it('should call dialog close modal when user presses escape key', async () => {
+    const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
+    const wrapper = mount(CreateTaskForm)
+
+    await wrapper.get('dialog').trigger('keydown.esc')
+
+    expect(closeSpy).toHaveBeenCalled()
+  })
 })
