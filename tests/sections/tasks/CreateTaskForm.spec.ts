@@ -132,13 +132,18 @@ describe('Create Task Form component', () => {
     wrapper.unmount()
   })
   it('should call dialog show modal when component is mounted', () => {
-    // Spy on the dialog's showModal method
     const showModalSpy = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
 
-    // Mount component
     mount(CreateTaskForm)
 
-    // Verify dialog open
     expect(showModalSpy).toHaveBeenCalled()
+  })
+  it('should call dialog close modal when cancel button is clicked', async () => {
+    const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
+    const wrapper = mount(CreateTaskForm)
+
+    await wrapper.find('button').trigger('click')
+
+    expect(closeSpy).toHaveBeenCalled()
   })
 })
