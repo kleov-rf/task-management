@@ -243,4 +243,47 @@ describe('TaskDashboard component', () => {
       .filter((b) => b.text().match(/Create new task/))[0]
     expect(createNewTaskButtonAfterCancel.element).toBe(document.activeElement)
   })
+  it('should show confirm task deletion dialog when task list emits delete task', async () => {
+    const mockRetrievedTasks = [
+      Task.create({
+        id: '1',
+        title: 'Task 1',
+        description: 'Laptop',
+        dueDate: new Date().getTime(),
+        status: 'pending'
+      })
+    ]
+    const mockAllTasksGetter = {
+      get: vi.fn().mockResolvedValue(mockRetrievedTasks)
+    }
+    wrapper = mount(TaskDashboard, {
+      global: {
+        provide: {
+          allTasksGetter: mockAllTasksGetter
+        }
+      }
+    })
+
+    await flushPromises()
+
+    const taskList = wrapper.findComponent({ name: 'TaskList' })
+    await taskList.vm.$emit('delete-task')
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+
+    const deleteTaskTitle = wrapper
+      .findAll('h2')
+      .filter((heading) => heading.text().match(/Delete task/))[0]
+    const cancelDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Cancel/))[0]
+    const confirmDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Delete/))[0]
+
+    expect(deleteTaskTitle.exists()).toBe(true)
+    expect(cancelDeletionButton.exists()).toBe(true)
+    expect(confirmDeletionButton.exists()).toBe(true)
+  })
 })
