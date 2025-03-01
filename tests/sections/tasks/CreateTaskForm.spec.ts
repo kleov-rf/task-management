@@ -131,4 +131,14 @@ describe('Create Task Form component', () => {
     expect(titleInput).toBe(document.activeElement)
     wrapper.unmount()
   })
+  it('should call dialog show modal when component is mounted', () => {
+    // Spy on the dialog's showModal method
+    const showModalSpy = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
+
+    // Mount component
+    mount(CreateTaskForm)
+
+    // Verify dialog open
+    expect(showModalSpy).toHaveBeenCalled()
+  })
 })
