@@ -5,6 +5,7 @@ import PlusIcon from './icons/PlusIcon.vue'
 import type { AllTasksGetter } from '@/modules/tasks/application/get-all/AllTasksGetter.ts'
 import type { Task } from '@/modules/tasks/domain/Task.ts'
 import TaskList from './TaskList.vue'
+import ConfirmDeleteTaskModal from '@/sections/tasks/ConfirmDeleteTaskModal.vue'
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
 
@@ -64,6 +65,7 @@ onMounted(async () => {
     @cancel-create-task="hideCreateTaskForm"
     @task-created="handleTaskCreated"
   />
+  <ConfirmDeleteTaskModal />
 </template>
 
 <style scoped></style>
