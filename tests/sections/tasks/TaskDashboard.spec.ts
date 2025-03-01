@@ -193,4 +193,29 @@ describe('TaskDashboard component', () => {
 
     expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
   })
+  it('should focus on create new task button after create task form emits task created', async () => {
+    const wrapper = mount(TaskDashboard, {
+      global: {
+        provide: {
+          allTasksGetter: mockAllTasksGetter
+        }
+      },
+      attachTo: document.body
+    })
+
+    const createNewTaskButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Create new task/))[0]
+    await createNewTaskButton.trigger('click')
+
+    const createTaskFormComponent = wrapper.findComponent({
+      name: 'CreateTaskForm'
+    })
+    await createTaskFormComponent.vm.$emit('task-created')
+
+    const createNewTaskButtonAfterCancel = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Create new task/))[0]
+    expect(createNewTaskButtonAfterCancel.element).toBe(document.activeElement)
+  })
 })
