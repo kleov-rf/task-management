@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { TaskCreator } from '@/modules/tasks/application/create/TaskCreator.ts'
 import { inject, onMounted, ref } from 'vue'
-import { HTMLInputElement } from 'happy-dom'
 
 const taskCreator = inject('taskCreator') as TaskCreator
 
@@ -10,6 +9,7 @@ const emit = defineEmits<{
   (e: 'task-created'): void
 }>()
 
+const createTaskDialog = ref<HTMLDialogElement | null>(null)
 const titleInput = ref<HTMLInputElement | null>(null)
 const description = ref('')
 const dueDate = ref('')
@@ -31,15 +31,17 @@ const handleCreateTask = async () => {
 
 onMounted(() => {
   titleInput.value?.focus()
+  createTaskDialog.value?.showModal()
 })
 </script>
 
 <template>
   <dialog
     @keydown.esc="emit('cancel-create-task')"
+    ref="createTaskDialog"
     aria-modal="true"
     aria-labelledby="create-task-title"
-    class="absolute flex justify-center items-center inset-0 w-full h-full backdrop-blur-[2px] bg-black/25 z-10"
+    class="flex justify-center items-center w-full h-full bg-transparent backdrop:bg-black/25 backdrop-blur-[2px]"
   >
     <form
       @submit.prevent="handleCreateTask"
