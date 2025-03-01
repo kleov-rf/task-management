@@ -286,4 +286,19 @@ describe('TaskDashboard component', () => {
     expect(cancelDeletionButton.exists()).toBe(true)
     expect(confirmDeletionButton.exists()).toBe(true)
   })
+  it('should not show confirm task deletion dialog if not emitted delete task', async () => {
+    const deleteTaskTitle = wrapper
+      .findAll('h2')
+      .filter((heading) => heading.text().match(/Delete task/))[0]
+    const cancelDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Cancel/))[0]
+    const confirmDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Delete/))[0]
+
+    expect(deleteTaskTitle).toBeUndefined()
+    expect(cancelDeletionButton).toBeUndefined()
+    expect(confirmDeletionButton).toBeUndefined()
+  })
 })
