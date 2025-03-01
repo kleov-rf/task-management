@@ -91,6 +91,14 @@ describe('Task Management', () => {
     await flushPromises()
     await wrapper.vm.$nextTick()
 
+    const confirmDeletionButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Confirm/))[0]
+    await confirmDeletionButton.trigger('click')
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+
     const task1TitleMatches = wrapper
       .findAll('th')
       .filter((b) => b.text().match(/Task 1/))
