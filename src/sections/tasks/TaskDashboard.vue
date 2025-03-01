@@ -34,7 +34,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="flex flex-col items-end gap-8 h-full bg-white p-8 rounded-2xl">
+  <main
+    :inert="isShowingCreateTaskForm"
+    class="flex flex-col items-end gap-8 h-full bg-white p-8 rounded-2xl"
+  >
     <header class="flex items-center justify-between w-full">
       <span class="flex items-center gap-4 text-xl font-medium">
         All Tasks
@@ -51,13 +54,13 @@ onMounted(async () => {
         Create new task
       </button>
     </header>
-    <CreateTaskForm
-      v-if="isShowingCreateTaskForm"
-      @cancel-create-task="hideCreateTaskForm"
-      @task-created="handleTaskCreated"
-    />
     <TaskList :tasks="tasks" @task-deleted="handleTaskDeleted" />
   </main>
+  <CreateTaskForm
+    v-if="isShowingCreateTaskForm"
+    @cancel-create-task="hideCreateTaskForm"
+    @task-created="handleTaskCreated"
+  />
 </template>
 
 <style scoped></style>
