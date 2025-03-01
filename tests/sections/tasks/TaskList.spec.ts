@@ -63,4 +63,33 @@ describe('TaskList component', () => {
 
     expect(mockTaskDeleter.delete).toHaveBeenCalledWith(mockTaskId)
   })
+  it('should emit delete task event when confirm delete button is clicked', async () => {
+    const mockTask = Task.create({
+      id: '1',
+      title: 'Task 1',
+      description: 'hello',
+      dueDate: new Date().getTime(),
+      status: 'pending'
+    })
+    const mockTaskDeleter = {
+      delete: vi.fn()
+    }
+    const wrapper = mount(TaskList, {
+      props: {
+        tasks: [mockTask]
+      },
+      global: {
+        provide: {
+          taskDeleter: mockTaskDeleter
+        }
+      }
+    })
+
+    const confirmDeleteButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Confirm delete/))[0]
+    await confirmDeleteButton.trigger('click')
+
+    expect(wrapper.emitted('delete-task')).toBeTruthy()
+  })
 })
