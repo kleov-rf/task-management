@@ -10,8 +10,13 @@ import ConfirmDeleteTaskModal from '@/sections/tasks/ConfirmDeleteTaskModal.vue'
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
 
 const createNewTaskButton = ref<HTMLButtonElement | null>(null)
+const isShowingConfirmDeleteTaskModal = ref(false)
 const isShowingCreateTaskForm = ref(false)
 const tasks = ref<Task[]>([])
+
+const showConfirmDeleteTaskModal = () => {
+  isShowingConfirmDeleteTaskModal.value = true
+}
 
 const showCreateTaskForm = () => {
   isShowingCreateTaskForm.value = true
@@ -58,14 +63,18 @@ onMounted(async () => {
         Create new task
       </button>
     </header>
-    <TaskList :tasks="tasks" @task-deleted="handleTaskDeleted" />
+    <TaskList
+      :tasks="tasks"
+      @task-deleted="handleTaskDeleted"
+      @delete-task="showConfirmDeleteTaskModal"
+    />
   </main>
   <CreateTaskForm
     v-if="isShowingCreateTaskForm"
     @cancel-create-task="hideCreateTaskForm"
     @task-created="handleTaskCreated"
   />
-  <ConfirmDeleteTaskModal />
+  <ConfirmDeleteTaskModal v-if="isShowingConfirmDeleteTaskModal" />
 </template>
 
 <style scoped></style>
