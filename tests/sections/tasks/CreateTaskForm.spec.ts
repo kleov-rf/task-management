@@ -21,10 +21,8 @@ describe('Create Task Form component', () => {
       .setValue('Description of the awesome task')
     await wrapper.find('input[name="dueDate"]').setValue('2021-12-31')
 
-    const confirmButton = wrapper
-      .findAll('button')
-      .filter((b) => b.text().match(/Confirm/))[0]
-    await confirmButton.trigger('click')
+    const form = wrapper.find('form')
+    await form.trigger('submit.prevent')
 
     expect(mockTaskCreator.create).toHaveBeenCalledWith({
       id: expect.any(String),
@@ -86,10 +84,8 @@ describe('Create Task Form component', () => {
       .setValue('Description of the awesome task')
     await wrapper.find('input[name="dueDate"]').setValue('2021-12-31')
 
-    const confirmButton = wrapper
-      .findAll('button')
-      .filter((b) => b.text().match(/Confirm/))[0]
-    await confirmButton.trigger('click')
+    const form = wrapper.find('form')
+    await form.trigger('submit.prevent')
 
     expect(wrapper.emitted('task-created')).toBeTruthy()
   })

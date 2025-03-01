@@ -20,8 +20,6 @@ export const createTask = async (
   const dueDateInput = wrapper.find('input[name="dueDate"]')
   await dueDateInput.setValue(dueDate)
 
-  const confirmButton = wrapper
-    .findAll('button')
-    .filter((b) => b.text().match(/Confirm/))[0]
-  await confirmButton.trigger('click')
+  const form = wrapper.find('form')
+  await form.trigger('submit.prevent')
 }

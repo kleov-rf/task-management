@@ -41,7 +41,10 @@ onMounted(() => {
     aria-labelledby="create-task-title"
     class="absolute flex justify-center items-center inset-0 w-full h-full backdrop-blur-[2px] bg-black/25 z-10"
   >
-    <form class="w-96 flex flex-col gap-6 p-6 bg-white rounded-lg shadow-md">
+    <form
+      @submit.prevent="handleCreateTask"
+      class="w-96 flex flex-col gap-6 p-6 bg-white rounded-lg shadow-md"
+    >
       <h2 id="create-task-title" class="text-3xl mb-2 font-bold">
         Create new task
       </h2>
@@ -104,7 +107,6 @@ onMounted(() => {
         </button>
         <button
           type="submit"
-          @click="handleCreateTask"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
         >
           Confirm
