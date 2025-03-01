@@ -8,6 +8,7 @@ import TaskList from './TaskList.vue'
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
 
+const createNewTaskButton = ref<HTMLButtonElement | null>(null)
 const isShowingCreateTaskForm = ref(false)
 const tasks = ref<Task[]>([])
 
@@ -21,6 +22,7 @@ const hideCreateTaskForm = () => {
 
 const handleTaskCreated = async () => {
   hideCreateTaskForm()
+  createNewTaskButton.value?.focus()
   tasks.value = await allTasksGetter.get()
 }
 
@@ -46,6 +48,7 @@ onMounted(async () => {
         </span>
       </span>
       <button
+        ref="createNewTaskButton"
         type="button"
         @click="showCreateTaskForm"
         class="flex gap-2 items-center w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition ease-in-out"
