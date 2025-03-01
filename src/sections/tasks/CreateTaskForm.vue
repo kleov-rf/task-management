@@ -37,10 +37,14 @@ onMounted(() => {
 <template>
   <dialog
     @keydown.esc="emit('cancel-create-task')"
+    aria-modal="true"
+    aria-labelledby="create-task-title"
     class="absolute flex justify-center items-center inset-0 w-full h-full backdrop-blur-[2px] bg-black/25 z-10"
   >
     <form class="w-96 flex flex-col gap-6 p-6 bg-white rounded-lg shadow-md">
-      <h2 class="text-3xl mb-2 font-bold">Create new task</h2>
+      <h2 id="create-task-title" class="text-3xl mb-2 font-bold">
+        Create new task
+      </h2>
 
       <section>
         <label for="title" class="block mb-2 text-sm font-medium text-gray-900"
