@@ -17,12 +17,12 @@ const showCreateTaskForm = () => {
 }
 
 const hideCreateTaskForm = () => {
+  createNewTaskButton.value?.focus()
   isShowingCreateTaskForm.value = false
 }
 
 const handleTaskCreated = async () => {
   hideCreateTaskForm()
-  createNewTaskButton.value?.focus()
   tasks.value = await allTasksGetter.get()
 }
 
