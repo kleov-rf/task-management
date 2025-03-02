@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <dialog
     ref="confirmDeleteTaskDialog"
-    @keydown.esc="emit('cancel-deletion')"
+    @keydown.esc="handleCancelDeletion"
     aria-modal="true"
     aria-labelledby="confirm-delete-task-title"
     class="flex justify-center items-center w-full h-full bg-transparent backdrop:bg-black/25 backdrop-blur-[2px]"
