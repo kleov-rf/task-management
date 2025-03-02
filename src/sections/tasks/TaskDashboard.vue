@@ -40,6 +40,7 @@ const handleTaskCreated = async () => {
 
 const newHandleTaskDeleted = async () => {
   isShowingConfirmDeleteTaskModal.value = false
+  tasks.value = await allTasksGetter.get()
 }
 
 const handleTaskDeleted = async () => {
