@@ -13,8 +13,10 @@ const createNewTaskButton = ref<HTMLButtonElement | null>(null)
 const isShowingConfirmDeleteTaskModal = ref(false)
 const isShowingCreateTaskFormModal = ref(false)
 const tasks = ref<Task[]>([])
+const taskIdToDelete = ref('')
 
-const showConfirmDeleteTaskModal = () => {
+const showConfirmDeleteTaskModal = (taskId: string) => {
+  taskIdToDelete.value = taskId
   isShowingConfirmDeleteTaskModal.value = true
 }
 
@@ -34,6 +36,10 @@ const hideCreateTaskFormModal = () => {
 const handleTaskCreated = async () => {
   hideCreateTaskFormModal()
   tasks.value = await allTasksGetter.get()
+}
+
+const newHandleTaskDeleted = async () => {
+  isShowingConfirmDeleteTaskModal.value = false
 }
 
 const handleTaskDeleted = async () => {
@@ -79,8 +85,10 @@ onMounted(async () => {
     @task-created="handleTaskCreated"
   />
   <ConfirmDeleteTaskModal
+    :taskId="taskIdToDelete"
     v-if="isShowingConfirmDeleteTaskModal"
     @cancel-deletion="hideConfirmDeleteTaskModal"
+    @task-deleted="newHandleTaskDeleted"
   />
 </template>
 
