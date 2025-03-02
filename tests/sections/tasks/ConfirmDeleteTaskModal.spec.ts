@@ -41,4 +41,14 @@ describe('Confirm delete task modal component', () => {
 
     expect(closeSpy).toHaveBeenCalled()
   })
+  it('should focus on cancel button when component is mounted', async () => {
+    const wrapper = mount(ConfirmDeleteTaskModal, {
+      attachTo: document.body
+    })
+    const cancelButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Cancel/))[0]
+
+    expect(cancelButton.element).toBe(document.activeElement)
+  })
 })
