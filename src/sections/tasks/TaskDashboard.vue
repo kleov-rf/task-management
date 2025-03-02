@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, ref } from 'vue'
-import CreateTaskForm from './CreateTaskForm.vue'
+import CreateTaskFormModal from './CreateTaskFormModal.vue'
 import PlusIcon from './icons/PlusIcon.vue'
 import type { AllTasksGetter } from '@/modules/tasks/application/get-all/AllTasksGetter.ts'
 import type { Task } from '@/modules/tasks/domain/Task.ts'
@@ -11,7 +11,7 @@ const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
 
 const createNewTaskButton = ref<HTMLButtonElement | null>(null)
 const isShowingConfirmDeleteTaskModal = ref(false)
-const isShowingCreateTaskForm = ref(false)
+const isShowingCreateTaskFormModal = ref(false)
 const tasks = ref<Task[]>([])
 
 const showConfirmDeleteTaskModal = () => {
@@ -22,17 +22,17 @@ const hideConfirmDeleteTaskModal = () => {
   isShowingConfirmDeleteTaskModal.value = false
 }
 
-const showCreateTaskForm = () => {
-  isShowingCreateTaskForm.value = true
+const showCreateTaskFormModal = () => {
+  isShowingCreateTaskFormModal.value = true
 }
 
-const hideCreateTaskForm = () => {
+const hideCreateTaskFormModal = () => {
   createNewTaskButton.value?.focus()
-  isShowingCreateTaskForm.value = false
+  isShowingCreateTaskFormModal.value = false
 }
 
 const handleTaskCreated = async () => {
-  hideCreateTaskForm()
+  hideCreateTaskFormModal()
   tasks.value = await allTasksGetter.get()
 }
 
@@ -47,7 +47,7 @@ onMounted(async () => {
 
 <template>
   <main
-    :inert="isShowingCreateTaskForm"
+    :inert="isShowingCreateTaskFormModal"
     class="flex flex-col items-end gap-8 h-full bg-white p-8 rounded-2xl"
   >
     <header class="flex items-center justify-between w-full">
@@ -60,7 +60,7 @@ onMounted(async () => {
       <button
         ref="createNewTaskButton"
         type="button"
-        @click="showCreateTaskForm"
+        @click="showCreateTaskFormModal"
         class="flex gap-2 items-center w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 transition ease-in-out"
       >
         <PlusIcon width="24" height="24" />
@@ -73,9 +73,9 @@ onMounted(async () => {
       @delete-task="showConfirmDeleteTaskModal"
     />
   </main>
-  <CreateTaskForm
-    v-if="isShowingCreateTaskForm"
-    @cancel-create-task="hideCreateTaskForm"
+  <CreateTaskFormModal
+    v-if="isShowingCreateTaskFormModal"
+    @cancel-create-task="hideCreateTaskFormModal"
     @task-created="handleTaskCreated"
   />
   <ConfirmDeleteTaskModal

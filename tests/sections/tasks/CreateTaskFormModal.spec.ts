@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import CreateTaskForm from '../../../src/sections/tasks/CreateTaskForm.vue'
+import CreateTaskFormModal from '../../../src/sections/tasks/CreateTaskFormModal.vue'
 import { mount } from '@vue/test-utils'
 
-describe('Create Task Form component', () => {
+describe('Create Task Form Modal component', () => {
   it('should call task creator to create a task', async () => {
     const mockTaskCreator = {
       create: vi.fn()
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -35,7 +35,7 @@ describe('Create Task Form component', () => {
     const mockTaskCreator = {
       create: vi.fn()
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -54,7 +54,7 @@ describe('Create Task Form component', () => {
     const mockTaskCreator = {
       create: vi.fn()
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -70,7 +70,7 @@ describe('Create Task Form component', () => {
     const mockTaskCreator = {
       create: vi.fn().mockResolvedValue({})
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -93,7 +93,7 @@ describe('Create Task Form component', () => {
     const mockTaskCreator = {
       create: vi.fn().mockRejectedValue('Error')
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -118,7 +118,7 @@ describe('Create Task Form component', () => {
     const mockTaskCreator = {
       create: vi.fn()
     }
-    const wrapper = mount(CreateTaskForm, {
+    const wrapper = mount(CreateTaskFormModal, {
       global: {
         provide: {
           taskCreator: mockTaskCreator
@@ -134,13 +134,13 @@ describe('Create Task Form component', () => {
   it('should call dialog show modal when component is mounted', () => {
     const showModalSpy = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
 
-    mount(CreateTaskForm)
+    mount(CreateTaskFormModal)
 
     expect(showModalSpy).toHaveBeenCalled()
   })
   it('should call dialog close modal when cancel button is clicked', async () => {
     const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
-    const wrapper = mount(CreateTaskForm)
+    const wrapper = mount(CreateTaskFormModal)
 
     await wrapper.find('button').trigger('click')
 
@@ -148,7 +148,7 @@ describe('Create Task Form component', () => {
   })
   it('should call dialog close modal when user presses escape key', async () => {
     const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
-    const wrapper = mount(CreateTaskForm)
+    const wrapper = mount(CreateTaskFormModal)
 
     await wrapper.get('dialog').trigger('keydown.esc')
 
