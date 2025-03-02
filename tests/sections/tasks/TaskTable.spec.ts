@@ -63,7 +63,7 @@ describe('TaskTable component', () => {
 
     expect(mockTaskDeleter.delete).toHaveBeenCalledWith(mockTaskId)
   })
-  it('should emit delete task event when confirm delete button is clicked', async () => {
+  it('should emit delete task event with task id when confirm delete button is clicked', async () => {
     const mockTask = Task.create({
       id: '1',
       title: 'Task 1',
@@ -91,5 +91,6 @@ describe('TaskTable component', () => {
     await confirmDeleteButton.trigger('click')
 
     expect(wrapper.emitted('delete-task')).toBeTruthy()
+    expect(wrapper.emitted('delete-task')[0][0]).toBe(mockTask.id)
   })
 })
