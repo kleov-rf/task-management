@@ -361,4 +361,42 @@ describe('TaskDashboard component', () => {
 
     expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
   })
+  it('should focus on delete button after canceling task deletion', async () => {
+    const mockRetrievedTasks = [
+      Task.create({
+        id: '1',
+        title: 'Task 1',
+        description: 'Laptop',
+        dueDate: new Date().getTime(),
+        status: 'pending'
+      })
+    ]
+    const mockAllTasksGetter = {
+      get: vi.fn().mockResolvedValue(mockRetrievedTasks)
+    }
+    const wrapper = mount(TaskDashboard, {
+      global: {
+        provide: {
+          allTasksGetter: mockAllTasksGetter
+        }
+      },
+      attachTo: document.body
+    })
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+
+    const taskTable = wrapper.findComponent({ name: 'TaskTable' })
+    await taskTable.vm.$emit('delete-task', mockRetrievedTasks[0].id)
+
+    const confirmTaskDeletionDialog = wrapper.findComponent({
+      name: 'ConfirmDeleteTaskModal'
+    })
+    await confirmTaskDeletionDialog.vm.$emit('cancel-delete-task')
+
+    const deleteButton = wrapper.find(
+      `button[data-testid="delete-task-${mockRetrievedTasks[0].id}"]`
+    )
+    expect(deleteButton.element).toBe(document.activeElement)
+  })
 })
