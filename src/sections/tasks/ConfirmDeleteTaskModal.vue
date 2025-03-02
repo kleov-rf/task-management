@@ -21,8 +21,8 @@ const handleCancelDeletion = () => {
   emit('cancel-deletion')
 }
 
-const handleConfirmDeletion = () => {
-  taskDeleter.delete(taskId)
+const handleConfirmDeletion = async () => {
+  await taskDeleter.delete(taskId)
   confirmDeleteTaskDialog.value?.close()
   emit('task-deleted')
 }
