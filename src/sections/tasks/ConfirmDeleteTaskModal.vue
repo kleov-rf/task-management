@@ -1,11 +1,20 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
 const emit = defineEmits<{
   (e: 'cancel-deletion'): void
 }>()
+
+const confirmDeleteTaskDialog = ref<HTMLDialogElement | null>(null)
+
+onMounted(() => {
+  confirmDeleteTaskDialog.value?.showModal()
+})
 </script>
 
 <template>
   <dialog
+    ref="confirmDeleteTaskDialog"
     @keydown.esc="emit('cancel-deletion')"
     aria-modal="true"
     aria-labelledby="confirm-delete-task-title"
