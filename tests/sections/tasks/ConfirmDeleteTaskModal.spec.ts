@@ -25,4 +25,12 @@ describe('Confirm delete task modal component', () => {
 
     expect(showModalSpy).toHaveBeenCalled()
   })
+  it('should call dialog close modal when cancel button is clicked', async () => {
+    const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
+    const wrapper = mount(ConfirmDeleteTaskModal)
+
+    await wrapper.find('button').trigger('click')
+
+    expect(closeSpy).toHaveBeenCalled()
+  })
 })
