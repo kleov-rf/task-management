@@ -33,4 +33,12 @@ describe('Confirm delete task modal component', () => {
 
     expect(closeSpy).toHaveBeenCalled()
   })
+  it('should call dialog close modal when user presses escape key', async () => {
+    const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
+    const wrapper = mount(ConfirmDeleteTaskModal)
+
+    await wrapper.trigger('keydown.esc')
+
+    expect(closeSpy).toHaveBeenCalled()
+  })
 })
