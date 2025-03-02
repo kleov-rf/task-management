@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import TaskList from '../../../src/sections/tasks/TaskList.vue'
+import TaskTable from '../../../src/sections/tasks/TaskTable.vue'
 import { Task } from '../../../src/modules/tasks/domain/Task'
 
-describe('TaskList component', () => {
+describe('TaskTable component', () => {
   it('should emit task deleted event when delete button is clicked', async () => {
     const mockTask = Task.create({
       id: '1',
@@ -15,7 +15,7 @@ describe('TaskList component', () => {
     const mockTaskDeleter = {
       delete: vi.fn()
     }
-    const wrapper = mount(TaskList, {
+    const wrapper = mount(TaskTable, {
       props: {
         tasks: [mockTask]
       },
@@ -45,7 +45,7 @@ describe('TaskList component', () => {
     const mockTaskDeleter = {
       delete: vi.fn()
     }
-    const wrapper = mount(TaskList, {
+    const wrapper = mount(TaskTable, {
       props: {
         tasks: [mockTask]
       },
@@ -74,7 +74,7 @@ describe('TaskList component', () => {
     const mockTaskDeleter = {
       delete: vi.fn()
     }
-    const wrapper = mount(TaskList, {
+    const wrapper = mount(TaskTable, {
       props: {
         tasks: [mockTask]
       },

@@ -4,7 +4,7 @@ import CreateTaskForm from './CreateTaskForm.vue'
 import PlusIcon from './icons/PlusIcon.vue'
 import type { AllTasksGetter } from '@/modules/tasks/application/get-all/AllTasksGetter.ts'
 import type { Task } from '@/modules/tasks/domain/Task.ts'
-import TaskList from './TaskList.vue'
+import TaskTable from './TaskTable.vue'
 import ConfirmDeleteTaskModal from '@/sections/tasks/ConfirmDeleteTaskModal.vue'
 
 const allTasksGetter = inject('allTasksGetter') as AllTasksGetter
@@ -67,7 +67,7 @@ onMounted(async () => {
         Create new task
       </button>
     </header>
-    <TaskList
+    <TaskTable
       :tasks="tasks"
       @task-deleted="handleTaskDeleted"
       @delete-task="showConfirmDeleteTaskModal"
