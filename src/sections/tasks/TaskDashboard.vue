@@ -18,6 +18,10 @@ const showConfirmDeleteTaskModal = () => {
   isShowingConfirmDeleteTaskModal.value = true
 }
 
+const hideConfirmDeleteTaskModal = () => {
+  isShowingConfirmDeleteTaskModal.value = false
+}
+
 const showCreateTaskForm = () => {
   isShowingCreateTaskForm.value = true
 }
@@ -74,7 +78,10 @@ onMounted(async () => {
     @cancel-create-task="hideCreateTaskForm"
     @task-created="handleTaskCreated"
   />
-  <ConfirmDeleteTaskModal v-if="isShowingConfirmDeleteTaskModal" />
+  <ConfirmDeleteTaskModal
+    v-if="isShowingConfirmDeleteTaskModal"
+    @cancel-deletion="hideConfirmDeleteTaskModal"
+  />
 </template>
 
 <style scoped></style>
