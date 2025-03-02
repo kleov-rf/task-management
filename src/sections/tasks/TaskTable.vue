@@ -57,7 +57,7 @@ const emit = defineEmits<{
               class="flex gap-2 items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 transition ease-in-out"
             >
               <TrashBinIcon width="16" height="16" />
-              Confirm delete
+              Delete
             </button>
           </td>
         </tr>

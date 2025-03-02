@@ -28,7 +28,7 @@ describe('TaskTable component', () => {
 
     const confirmDeleteButton = wrapper
       .findAll('button')
-      .filter((b) => b.text().match(/Confirm delete/))[0]
+      .filter((b) => b.text().match(/Delete/))[0]
     await confirmDeleteButton.trigger('click')
 
     expect(wrapper.emitted('delete-task')).toBeTruthy()
