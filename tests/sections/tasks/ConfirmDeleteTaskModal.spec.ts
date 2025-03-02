@@ -96,4 +96,27 @@ describe('Confirm delete task modal component', () => {
 
     expect(wrapper.emitted('task-deleted')).toBeTruthy()
   })
+  it('should call dialog close modal when confirm button is clicked', async () => {
+    const closeSpy = vi.spyOn(HTMLDialogElement.prototype, 'close')
+    const mockTaskDeleter = {
+      delete: vi.fn()
+    }
+    const wrapper = mount(ConfirmDeleteTaskModal, {
+      props: {
+        taskId: '1'
+      },
+      global: {
+        provide: {
+          taskDeleter: mockTaskDeleter
+        }
+      }
+    })
+
+    const confirmButton = wrapper
+      .findAll('button')
+      .filter((b) => b.text().match(/Confirm/))[0]
+    await confirmButton.trigger('click')
+
+    expect(closeSpy).toHaveBeenCalled()
+  })
 })
