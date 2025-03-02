@@ -14,14 +14,19 @@ const isShowingConfirmDeleteTaskModal = ref(false)
 const isShowingCreateTaskFormModal = ref(false)
 const tasks = ref<Task[]>([])
 const taskIdToDelete = ref('')
+const taskToDeleteButton = ref<HTMLButtonElement | null>(null)
 
 const showConfirmDeleteTaskModal = (taskId: string) => {
   taskIdToDelete.value = taskId
+  taskToDeleteButton.value = document.querySelector(
+    `[data-testid="delete-task-${taskId}"]`
+  )
   isShowingConfirmDeleteTaskModal.value = true
 }
 
 const hideConfirmDeleteTaskModal = () => {
   isShowingConfirmDeleteTaskModal.value = false
+  taskToDeleteButton.value?.focus()
 }
 
 const showCreateTaskFormModal = () => {

@@ -53,6 +53,7 @@ const emit = defineEmits<{
           <td class="flex justify-end px-6 py-4">
             <button
               type="button"
+              :data-testid="`delete-task-${task.id}`"
               @click="emit('delete-task', task.id)"
               class="flex gap-2 items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 transition ease-in-out"
             >
