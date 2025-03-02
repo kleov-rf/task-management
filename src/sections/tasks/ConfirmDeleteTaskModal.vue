@@ -8,6 +8,7 @@ const { taskId } = defineProps<{
 
 const emit = defineEmits<{
   (e: 'cancel-deletion'): void
+  (e: 'task-deleted'): void
 }>()
 
 const taskDeleter = inject('taskDeleter') as TaskDeleter
@@ -22,6 +23,7 @@ const handleCancelDeletion = () => {
 
 const handleConfirmDeletion = () => {
   taskDeleter.delete(taskId)
+  emit('task-deleted')
 }
 
 onMounted(() => {
