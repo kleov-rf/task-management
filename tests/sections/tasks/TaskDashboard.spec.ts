@@ -353,4 +353,40 @@ describe('TaskDashboard component', () => {
     expect(cancelDeletionButton).toBeUndefined()
     expect(confirmDeletionButton).toBeUndefined()
   })
+  it('should call to get all tasks when confirm task deletion dialog emits task deleted', async () => {
+    const mockRetrievedTasks = [
+      Task.create({
+        id: '1',
+        title: 'Task 1',
+        description: 'Laptop',
+        dueDate: new Date().getTime(),
+        status: 'pending'
+      })
+    ]
+    const mockAllTasksGetter = {
+      get: vi.fn().mockResolvedValue(mockRetrievedTasks)
+    }
+    wrapper = mount(TaskDashboard, {
+      global: {
+        provide: {
+          allTasksGetter: mockAllTasksGetter
+        }
+      }
+    })
+
+    await flushPromises()
+
+    const taskTable = wrapper.findComponent({ name: 'TaskTable' })
+    await taskTable.vm.$emit('delete-task')
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+
+    const confirmTaskDeletionDialog = wrapper.findComponent({
+      name: 'ConfirmDeleteTaskModal'
+    })
+    await confirmTaskDeletionDialog.vm.$emit('task-deleted')
+
+    expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
+  })
 })
