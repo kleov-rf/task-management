@@ -10,13 +10,13 @@ describe('Confirm delete task modal component', () => {
       .filter((b) => b.text().match(/Cancel/))[0]
     await cancelButton.trigger('click')
 
-    expect(wrapper.emitted('cancel-deletion')).toBeTruthy()
+    expect(wrapper.emitted('cancel-delete-task')).toBeTruthy()
   })
   it('should emit cancel deletion event when user presses escape key', async () => {
     const wrapper = mount(ConfirmDeleteTaskModal)
     await wrapper.trigger('keydown.esc')
 
-    expect(wrapper.emitted('cancel-deletion')).toBeTruthy()
+    expect(wrapper.emitted('cancel-delete-task')).toBeTruthy()
   })
   it('should call dialog show modal when component is mounted', async () => {
     const showModalSpy = vi.spyOn(HTMLDialogElement.prototype, 'showModal')

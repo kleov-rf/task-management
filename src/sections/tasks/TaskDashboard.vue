@@ -80,7 +80,7 @@ onMounted(async () => {
   <ConfirmDeleteTaskModal
     :taskId="taskIdToDelete"
     v-if="isShowingConfirmDeleteTaskModal"
-    @cancel-deletion="hideConfirmDeleteTaskModal"
+    @cancel-delete-task="hideConfirmDeleteTaskModal"
     @task-deleted="newHandleTaskDeleted"
   />
 </template>

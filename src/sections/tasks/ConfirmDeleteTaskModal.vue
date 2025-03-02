@@ -7,7 +7,7 @@ const { taskId } = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'cancel-deletion'): void
+  (e: 'cancel-delete-task'): void
   (e: 'task-deleted'): void
 }>()
 
@@ -18,7 +18,7 @@ const confirmDeleteTaskDialog = ref<HTMLDialogElement | null>(null)
 
 const handleCancelDeletion = () => {
   confirmDeleteTaskDialog.value?.close()
-  emit('cancel-deletion')
+  emit('cancel-delete-task')
 }
 
 const handleConfirmDeletion = async () => {

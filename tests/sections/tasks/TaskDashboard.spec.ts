@@ -244,8 +244,6 @@ describe('TaskDashboard component', () => {
     await flushPromises()
     await wrapper.vm.$nextTick()
 
-    console.log(wrapper.html())
-
     const deleteTaskTitle = wrapper
       .findAll('h2')
       .filter((heading) => heading.text().match(/Delete task/))[0]
@@ -285,7 +283,7 @@ describe('TaskDashboard component', () => {
     const confirmTaskDeletionDialog = wrapper.findComponent({
       name: 'ConfirmDeleteTaskModal'
     })
-    await confirmTaskDeletionDialog.vm.$emit('cancel-deletion')
+    await confirmTaskDeletionDialog.vm.$emit('cancel-delete-task')
 
     const deleteTaskTitle = wrapper
       .findAll('h2')
