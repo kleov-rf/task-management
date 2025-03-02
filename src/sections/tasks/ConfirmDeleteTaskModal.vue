@@ -23,6 +23,7 @@ const handleCancelDeletion = () => {
 
 const handleConfirmDeletion = () => {
   taskDeleter.delete(taskId)
+  confirmDeleteTaskDialog.value?.close()
   emit('task-deleted')
 }
 
