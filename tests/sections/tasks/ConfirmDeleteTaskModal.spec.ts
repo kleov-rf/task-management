@@ -12,4 +12,10 @@ describe('Confirm delete task modal component', () => {
 
     expect(wrapper.emitted('cancel-deletion')).toBeTruthy()
   })
+  it('should emit cancel deletion event when user presses escape key', async () => {
+    const wrapper = mount(ConfirmDeleteTaskModal)
+    await wrapper.trigger('keydown.esc')
+
+    expect(wrapper.emitted('cancel-deletion')).toBeTruthy()
+  })
 })
