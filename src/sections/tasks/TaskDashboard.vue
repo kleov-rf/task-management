@@ -43,10 +43,6 @@ const newHandleTaskDeleted = async () => {
   tasks.value = await allTasksGetter.get()
 }
 
-const handleTaskDeleted = async () => {
-  tasks.value = await allTasksGetter.get()
-}
-
 onMounted(async () => {
   tasks.value = await allTasksGetter.get()
 })
@@ -74,11 +70,7 @@ onMounted(async () => {
         Create new task
       </button>
     </header>
-    <TaskTable
-      :tasks="tasks"
-      @task-deleted="handleTaskDeleted"
-      @delete-task="showConfirmDeleteTaskModal"
-    />
+    <TaskTable :tasks="tasks" @delete-task="showConfirmDeleteTaskModal" />
   </main>
   <CreateTaskFormModal
     v-if="isShowingCreateTaskFormModal"

@@ -78,7 +78,7 @@ describe('TaskDashboard component', () => {
     expect(titleInput.exists()).toBe(true)
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('cancel-create-task')
 
@@ -95,7 +95,7 @@ describe('TaskDashboard component', () => {
     expect(titleInput.exists()).toBe(true)
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('task-created')
 
@@ -112,7 +112,7 @@ describe('TaskDashboard component', () => {
     expect(titleInput.exists()).toBe(true)
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('task-created')
 
@@ -150,7 +150,7 @@ describe('TaskDashboard component', () => {
     expect(titleInput.exists()).toBe(true)
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('task-created')
 
@@ -164,34 +164,6 @@ describe('TaskDashboard component', () => {
       .findAll('th')
       .filter((b) => b.text().match(/Task 1/))[0]
     expect(newTaskTitle.exists()).toBe(true)
-  })
-  it('should call to get all tasks when tasks list emits task deleted', async () => {
-    const mockRetrievedTasks = [
-      Task.create({
-        id: '1',
-        title: 'Task 1',
-        description: 'Laptop',
-        dueDate: new Date().getTime(),
-        status: 'pending'
-      })
-    ]
-    const mockAllTasksGetter = {
-      get: vi.fn().mockResolvedValue(mockRetrievedTasks)
-    }
-    wrapper = mount(TaskDashboard, {
-      global: {
-        provide: {
-          allTasksGetter: mockAllTasksGetter
-        }
-      }
-    })
-
-    await flushPromises()
-
-    const createTaskFormComponent = wrapper.findComponent({ name: 'TaskList' })
-    await createTaskFormComponent.vm.$emit('task-deleted')
-
-    expect(mockAllTasksGetter.get).toHaveBeenCalledTimes(2)
   })
   it('should focus on create new task button after create task form emits task created', async () => {
     const wrapper = mount(TaskDashboard, {
@@ -209,7 +181,7 @@ describe('TaskDashboard component', () => {
     await createNewTaskButton.trigger('click')
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('task-created')
 
@@ -234,7 +206,7 @@ describe('TaskDashboard component', () => {
     await createNewTaskButton.trigger('click')
 
     const createTaskFormComponent = wrapper.findComponent({
-      name: 'CreateTaskForm'
+      name: 'CreateTaskFormModal'
     })
     await createTaskFormComponent.vm.$emit('cancel-create-task')
 
@@ -266,11 +238,13 @@ describe('TaskDashboard component', () => {
 
     await flushPromises()
 
-    const taskList = wrapper.findComponent({ name: 'TaskList' })
-    await taskList.vm.$emit('delete-task')
+    const taskTable = wrapper.findComponent({ name: 'TaskTable' })
+    await taskTable.vm.$emit('delete-task', mockRetrievedTasks[0].id)
 
     await flushPromises()
     await wrapper.vm.$nextTick()
+
+    console.log(wrapper.html())
 
     const deleteTaskTitle = wrapper
       .findAll('h2')
@@ -280,7 +254,7 @@ describe('TaskDashboard component', () => {
       .filter((button) => button.text().match(/Cancel/))[0]
     const confirmDeletionButton = wrapper
       .findAll('button')
-      .filter((button) => button.text().match(/Delete/))[0]
+      .filter((button) => button.text().match(/Confirm/))[0]
 
     expect(deleteTaskTitle.exists()).toBe(true)
     expect(cancelDeletionButton.exists()).toBe(true)
@@ -302,8 +276,8 @@ describe('TaskDashboard component', () => {
     expect(confirmDeletionButton).toBeUndefined()
   })
   it('should not show confirm task deletion dialog if emitted cancel deletion', async () => {
-    const taskList = wrapper.findComponent({ name: 'TaskList' })
-    await taskList.vm.$emit('delete-task')
+    const taskTable = wrapper.findComponent({ name: 'TaskTable' })
+    await taskTable.vm.$emit('delete-task')
 
     await flushPromises()
     await wrapper.vm.$nextTick()
