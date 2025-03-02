@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
+import type { TaskDeleter } from '@/modules/tasks/application/delete/TaskDeleter.ts'
+
+const { taskId } = defineProps<{
+  taskId: string
+}>()
 
 const emit = defineEmits<{
   (e: 'cancel-deletion'): void
 }>()
+
+const taskDeleter = inject('taskDeleter') as TaskDeleter
 
 const cancelDeletionButton = ref<HTMLButtonElement | null>(null)
 const confirmDeleteTaskDialog = ref<HTMLDialogElement | null>(null)
@@ -11,6 +18,10 @@ const confirmDeleteTaskDialog = ref<HTMLDialogElement | null>(null)
 const handleCancelDeletion = () => {
   confirmDeleteTaskDialog.value?.close()
   emit('cancel-deletion')
+}
+
+const handleConfirmDeletion = () => {
+  taskDeleter.delete(taskId)
 }
 
 onMounted(() => {
@@ -49,6 +60,7 @@ onMounted(() => {
         </button>
         <button
           type="button"
+          @click="handleConfirmDeletion"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
         >
           Confirm
