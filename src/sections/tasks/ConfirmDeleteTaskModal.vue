@@ -5,6 +5,7 @@ const emit = defineEmits<{
   (e: 'cancel-deletion'): void
 }>()
 
+const cancelDeletionButton = ref<HTMLButtonElement | null>(null)
 const confirmDeleteTaskDialog = ref<HTMLDialogElement | null>(null)
 
 const handleCancelDeletion = () => {
@@ -13,6 +14,7 @@ const handleCancelDeletion = () => {
 }
 
 onMounted(() => {
+  cancelDeletionButton.value?.focus()
   confirmDeleteTaskDialog.value?.showModal()
 })
 </script>
@@ -38,6 +40,7 @@ onMounted(() => {
 
       <footer class="flex justify-end">
         <button
+          ref="cancelDeletionButton"
           type="button"
           @click="handleCancelDeletion"
           class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
