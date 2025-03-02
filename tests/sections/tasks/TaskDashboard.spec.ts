@@ -301,4 +301,30 @@ describe('TaskDashboard component', () => {
     expect(cancelDeletionButton).toBeUndefined()
     expect(confirmDeletionButton).toBeUndefined()
   })
+  it('should not show confirm task deletion dialog if emitted cancel deletion', async () => {
+    const taskList = wrapper.findComponent({ name: 'TaskList' })
+    await taskList.vm.$emit('delete-task')
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+
+    const confirmTaskDeletionDialog = wrapper.findComponent({
+      name: 'ConfirmDeleteTaskModal'
+    })
+    await confirmTaskDeletionDialog.vm.$emit('cancel-deletion')
+
+    const deleteTaskTitle = wrapper
+      .findAll('h2')
+      .filter((heading) => heading.text().match(/Delete task/))[0]
+    const cancelDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Cancel/))[0]
+    const confirmDeletionButton = wrapper
+      .findAll('button')
+      .filter((button) => button.text().match(/Delete/))[0]
+
+    expect(deleteTaskTitle).toBeUndefined()
+    expect(cancelDeletionButton).toBeUndefined()
+    expect(confirmDeletionButton).toBeUndefined()
+  })
 })
