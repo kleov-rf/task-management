@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ConfirmDeleteTaskModal from '../../../src/sections/tasks/ConfirmDeleteTaskModal.vue'
 
@@ -17,5 +17,12 @@ describe('Confirm delete task modal component', () => {
     await wrapper.trigger('keydown.esc')
 
     expect(wrapper.emitted('cancel-deletion')).toBeTruthy()
+  })
+  it('should call dialog show modal when component is mounted', async () => {
+    const showModalSpy = vi.spyOn(HTMLDialogElement.prototype, 'showModal')
+
+    mount(ConfirmDeleteTaskModal)
+
+    expect(showModalSpy).toHaveBeenCalled()
   })
 })
