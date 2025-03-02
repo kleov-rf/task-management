@@ -6,6 +6,7 @@ const emit = defineEmits<{
 
 <template>
   <dialog
+    @keydown.esc="emit('cancel-deletion')"
     aria-modal="true"
     aria-labelledby="confirm-delete-task-title"
     class="flex justify-center items-center w-full h-full bg-transparent backdrop:bg-black/25 backdrop-blur-[2px]"
