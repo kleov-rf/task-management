@@ -6,8 +6,7 @@ describe('AllTasksGetter', () => {
   it('should call task repository to get all tasks', async () => {
     const taskRepository = {
       getAll: vi.fn(),
-      save: vi.fn()
-    } as TaskRepository
+    } as unknown as TaskRepository
     const allTasksGetter = new AllTasksGetter(taskRepository)
 
     await allTasksGetter.get()

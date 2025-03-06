@@ -7,7 +7,7 @@ describe('TaskCreator', () => {
   it('should call TaskRepository save when creating a task', async () => {
     const mockTaskRepository = {
       save: vi.fn()
-    } as TaskRepository
+    } as unknown as TaskRepository
     const taskCreator = new TaskCreator(mockTaskRepository)
 
     let mockDueDate = new Date().getTime()

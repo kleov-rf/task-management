@@ -6,10 +6,8 @@ describe('TaskDeleter', () => {
   it('should call repository to delete a task', async () => {
     const mockTaskRepository = {
       delete: vi.fn(),
-      getAll: vi.fn(),
-      save: vi.fn(),
       get: vi.fn()
-    } as TaskRepository
+    } as unknown as TaskRepository
     const taskDeleter = new TaskDeleter(mockTaskRepository)
 
     await taskDeleter.delete('1')
@@ -19,10 +17,8 @@ describe('TaskDeleter', () => {
   it('should call repository to check if task exists', async () => {
     const mockTaskRepository = {
       delete: vi.fn(),
-      getAll: vi.fn(),
-      save: vi.fn(),
       get: vi.fn()
-    } as TaskRepository
+    } as unknown as TaskRepository
     const taskDeleter = new TaskDeleter(mockTaskRepository)
 
     await taskDeleter.delete('1')
@@ -32,10 +28,8 @@ describe('TaskDeleter', () => {
   it('should not call repository to delete a task if it does not exist', async () => {
     const mockTaskRepository = {
       delete: vi.fn(),
-      getAll: vi.fn(),
-      save: vi.fn(),
       get: vi.fn().mockResolvedValue(null)
-    } as TaskRepository
+    } as unknown as TaskRepository
     const taskDeleter = new TaskDeleter(mockTaskRepository)
 
     await taskDeleter.delete('1')
