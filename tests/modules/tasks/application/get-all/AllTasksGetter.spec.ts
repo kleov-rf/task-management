@@ -5,7 +5,7 @@ import { TaskRepository } from '../../../../../src/modules/tasks/domain/TaskRepo
 describe('AllTasksGetter', () => {
   it('should call task repository to get all tasks', async () => {
     const taskRepository = {
-      getAll: vi.fn(),
+      getAll: vi.fn()
     } as unknown as TaskRepository
     const allTasksGetter = new AllTasksGetter(taskRepository)
 
